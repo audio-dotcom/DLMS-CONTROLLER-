@@ -3,66 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>DLMS Mini XTA — Control</title>
+<title>DLMS Mini 240 — Control</title>
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#0b0d0f">
 <link rel="icon" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./icon-192.png">
 <style>
   :root{
-    --bg:#0b0d0f;
-    --panel:#14181c;
-    --panel2:#1b2126;
-    --line:#262e34;
-    --amber:#ffb02e;
-    --amber-dim:#8a5f1c;
-    --green:#4ee08a;
-    --red:#ff5c5c;
-    --cyan:#4fd8e0;
-    --text:#e8ecef;
-    --textdim:#7c8790;
-    --mono: 'DM Mono', 'SFMono-Regular', Consolas, monospace;
+    --bg:#0a0e17;
+    --panel:#0f1523;
+    --panel2:#131b2c;
+    --line:#1e2c42;
+    --cyan:#3ec9e8;
+    --cyan-dim:#1c5a6e;
+    --mint:#3ee89a;
+    --amber:#ffc94a;
+    --red:#ff5c7a;
+    --text:#dbe7f2;
+    --textdim:#5c7690;
+    --mono: 'Courier New', 'DM Mono', Consolas, monospace;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
   html,body{margin:0; padding:0; background:var(--bg); color:var(--text);
-    font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+    font-family:var(--mono); text-transform:uppercase; letter-spacing:.03em;
     overscroll-behavior:none; user-select:none;}
   #app{max-width:520px; margin:0 auto; min-height:100vh; display:flex; flex-direction:column;}
 
   /* ---------- TOP BAR ---------- */
-  header{padding:14px 16px 10px; border-bottom:1px solid var(--line); background:linear-gradient(180deg,#111417,#0e1114);}
+  header{padding:14px 16px 10px; border-bottom:1px solid var(--line); background:linear-gradient(180deg,#0d1220,#0a0e17);}
   .brandrow{display:flex; align-items:center; justify-content:space-between;}
   .brand{display:flex; flex-direction:column; line-height:1.1;}
-  .brand b{font-size:15px; letter-spacing:.12em; color:var(--amber); font-weight:700;}
-  .brand span{font-size:10px; letter-spacing:.18em; color:var(--textdim); margin-top:2px;}
+  .brand b{font-size:15px; letter-spacing:.14em; color:var(--cyan); font-weight:700;}
+  .brand span{font-size:10px; letter-spacing:.18em; color:var(--mint); margin-top:2px;}
   .connbtn{display:flex; align-items:center; gap:7px; background:var(--panel2); border:1px solid var(--line);
-    padding:8px 14px; border-radius:20px; font-size:12px; font-weight:600; letter-spacing:.03em; color:var(--textdim);}
-  .connbtn.on{color:var(--green); border-color:#2a4a3a;}
+    padding:8px 14px; border-radius:20px; font-size:11px; font-weight:600; letter-spacing:.05em; color:var(--textdim);}
+  .connbtn.on{color:var(--mint); border-color:#1c5a3e;}
   .dot{width:7px; height:7px; border-radius:50%; background:var(--textdim);}
-  .connbtn.on .dot{background:var(--green); box-shadow:0 0 6px var(--green);}
+  .connbtn.on .dot{background:var(--mint); box-shadow:0 0 6px var(--mint);}
 
   /* ---------- TABS ---------- */
   nav{display:flex; overflow-x:auto; gap:2px; padding:8px 10px; background:var(--bg);
     border-bottom:1px solid var(--line); -ms-overflow-style:none; scrollbar-width:none;}
   nav::-webkit-scrollbar{display:none;}
-  nav button{flex:0 0 auto; background:none; border:none; color:var(--textdim); font-size:11px;
-    font-weight:700; letter-spacing:.06em; padding:9px 13px; border-radius:8px; white-space:nowrap;}
-  nav button.active{color:var(--bg); background:var(--amber);}
+  nav button{flex:0 0 auto; background:none; border:none; color:var(--textdim); font-size:11px; font-family:var(--mono);
+    font-weight:700; letter-spacing:.08em; padding:9px 13px; border-radius:8px; white-space:nowrap;}
+  nav button.active{color:var(--bg); background:var(--cyan);}
 
   main{flex:1; padding:16px 14px 90px;}
   .panel{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:14px; margin-bottom:14px;}
-  .panel h3{margin:0 0 12px; font-size:11px; letter-spacing:.12em; color:var(--textdim); font-weight:700; text-transform:uppercase;}
+  .panel h3{margin:0 0 12px; font-size:11px; letter-spacing:.14em; color:var(--mint); font-weight:700; text-transform:uppercase;}
 
   /* ---------- CHANNEL PICKER ---------- */
   .chsel{display:flex; gap:6px; margin-bottom:14px;}
   .chsel button{flex:1; padding:10px 0; background:var(--panel2); border:1px solid var(--line); border-radius:9px;
     color:var(--textdim); font-size:12px; font-weight:700; font-family:var(--mono);}
-  .chsel button.active{background:#2a2312; border-color:var(--amber-dim); color:var(--amber);}
+  .chsel button.active{background:#0e2c36; border-color:var(--cyan-dim); color:var(--cyan);}
 
   /* ---------- ROWS ---------- */
   .row{display:flex; align-items:center; justify-content:space-between; padding:11px 2px; border-bottom:1px solid var(--line);}
   .row:last-child{border-bottom:none;}
-  .row .lbl{font-size:13px; color:var(--text); font-weight:500;}
+  .row .lbl{font-size:12px; color:var(--text); font-weight:500;}
   .row .sub{font-size:10px; color:var(--textdim); margin-top:1px;}
   .val{font-family:var(--mono); font-size:14px; color:var(--amber); font-weight:600; min-width:56px; text-align:right;}
 
@@ -71,47 +71,64 @@
   .sliderow .top{display:flex; justify-content:space-between; margin-bottom:8px;}
   input[type=range]{-webkit-appearance:none; width:100%; height:4px; border-radius:2px; background:var(--line); outline:none;}
   input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:20px; height:20px; border-radius:50%;
-    background:var(--amber); border:3px solid #0b0d0f; box-shadow:0 0 0 1px var(--amber-dim);}
+    background:var(--cyan); border:3px solid #0a0e17; box-shadow:0 0 8px var(--cyan-dim);}
+
+  /* ---------- MINI VU/GR METER ---------- */
+  .meterrow{display:flex; align-items:center; gap:8px; margin-top:6px;}
+  .meterrow .mlabel{font-size:9px; color:var(--mint); width:20px; font-weight:700;}
+  .meterrow.gr .mlabel{color:var(--red);}
+  .meterbar{flex:1; height:6px; background:#060a12; border-radius:3px; overflow:hidden;}
+  .meterbar i{display:block; height:100%; width:22%; border-radius:3px;
+    background:linear-gradient(90deg, var(--mint), var(--amber) 70%, var(--red) 92%);}
+  .meterbar.gr i{background:var(--red); width:8%;}
 
   /* ---------- BUTTON GRID (mute / route) ---------- */
   .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
   .grid2{display:grid; grid-template-columns:repeat(2,1fr); gap:8px;}
   .toggle{padding:12px 6px; border-radius:9px; background:var(--panel2); border:1px solid var(--line);
     text-align:center; font-size:12px; font-weight:700; color:var(--textdim); font-family:var(--mono);}
-  .toggle.mute-on{background:#3a1414; border-color:#5c2323; color:var(--red);}
-  .toggle.route-on{background:#12251b; border-color:#1f4a30; color:var(--green);}
+  .toggle.mute-on{background:#3a1420; border-color:#5c2338; color:var(--red);}
+  .toggle.route-on{background:#0e2c22; border-color:#1c5a3e; color:var(--mint);}
 
   /* ---------- PEQ BAND SELECTOR ---------- */
   .bandrow{display:grid; grid-template-columns:repeat(9,1fr); gap:4px; margin-bottom:14px;}
   .bandrow button{aspect-ratio:1; border-radius:7px; background:var(--panel2); border:1px solid var(--line);
     color:var(--textdim); font-family:var(--mono); font-size:11px; font-weight:700;}
-  .bandrow button.active{background:var(--amber); color:#1a1200; border-color:var(--amber);}
+  .bandrow button.active{background:var(--cyan); color:#08121a; border-color:var(--cyan);}
 
-  /* ---------- RTA METER ---------- */
-  .rta{display:flex; align-items:flex-end; gap:3px; height:160px; background:var(--panel2); border-radius:10px; padding:10px; border:1px solid var(--line);}
-  .rta .bar{flex:1; background:linear-gradient(180deg, var(--red), var(--amber) 30%, var(--green) 65%);
-    border-radius:2px 2px 0 0; min-height:2px; transition:height .08s linear;}
+  /* ---------- RTA + XOVER COMBINED GRAPH ---------- */
+  .graphwrap{background:#060a12; border-radius:10px; border:1px solid var(--line); padding:10px;}
+  .legend{display:flex; gap:12px; justify-content:flex-end; margin-bottom:6px; flex-wrap:wrap;}
+  .legend span{font-size:9px; color:var(--textdim); display:flex; align-items:center; gap:4px;}
+  .legend i{width:8px; height:8px; border-radius:2px; display:inline-block;}
+  canvas#rtaCanvas{width:100%; height:180px; display:block;}
   .rtalabels{display:flex; gap:3px; margin-top:6px;}
   .rtalabels span{flex:1; text-align:center; font-size:8px; color:var(--textdim); font-family:var(--mono);}
 
+  /* ---------- QUICK JUMP ROW ---------- */
+  .jumprow{display:flex; gap:6px; overflow-x:auto; margin-top:12px; -ms-overflow-style:none; scrollbar-width:none;}
+  .jumprow::-webkit-scrollbar{display:none;}
+  .jumprow button{flex:0 0 auto; background:var(--cyan); color:#08121a; border:none; border-radius:7px;
+    padding:9px 14px; font-size:10px; font-weight:700; font-family:var(--mono); letter-spacing:.06em;}
+
   /* ---------- PRESET ---------- */
   .presetlist button{width:100%; text-align:left; padding:13px 12px; margin-bottom:8px; border-radius:10px;
-    background:var(--panel2); border:1px solid var(--line); color:var(--text); font-size:13px; font-weight:600;
-    display:flex; justify-content:space-between; align-items:center;}
+    background:var(--panel2); border:1px solid var(--line); color:var(--text); font-size:12px; font-weight:600;
+    display:flex; justify-content:space-between; align-items:center; font-family:var(--mono);}
   .presetlist button .tag{font-size:10px; color:var(--textdim); font-family:var(--mono); font-weight:400;}
 
   .save-row{display:flex; gap:8px; margin-top:10px;}
   .btn{flex:1; padding:12px; border-radius:10px; border:1px solid var(--line); background:var(--panel2);
-    color:var(--text); font-size:12px; font-weight:700; letter-spacing:.03em;}
-  .btn.primary{background:var(--amber); color:#1a1200; border-color:var(--amber);}
+    color:var(--text); font-size:11px; font-weight:700; letter-spacing:.05em; font-family:var(--mono);}
+  .btn.primary{background:var(--cyan); color:#08121a; border-color:var(--cyan);}
 
   /* ---------- TOAST ---------- */
   #toast{position:fixed; bottom:20px; left:50%; transform:translateX(-50%) translateY(120%); background:var(--panel2);
-    border:1px solid var(--line); color:var(--text); padding:11px 20px; border-radius:24px; font-size:12px; font-weight:600;
-    transition:transform .25s ease; z-index:50; box-shadow:0 8px 24px rgba(0,0,0,.4);}
+    border:1px solid var(--line); color:var(--text); padding:11px 20px; border-radius:24px; font-size:11px; font-weight:600;
+    transition:transform .25s ease; z-index:50; box-shadow:0 8px 24px rgba(0,0,0,.5); font-family:var(--mono);}
   #toast.show{transform:translateX(-50%) translateY(0);}
 
-  .hint{font-size:11px; color:var(--textdim); line-height:1.5; padding:4px 2px 0;}
+  .hint{font-size:10px; color:var(--textdim); line-height:1.6; padding:4px 2px 0; text-transform:none; letter-spacing:0;}
   .empty{padding:40px 10px; text-align:center; color:var(--textdim); font-size:13px;}
 </style>
 </head>
@@ -120,18 +137,14 @@
 
   <header>
     <div class="brandrow">
-      <div class="brand"><b>YSN AUDIO</b><span>DLMS MINI XTA</span></div>
+      <div class="brand"><b>YSN AUDIO</b><span>DLMS MINI 240</span></div>
       <button class="connbtn" id="connBtn"><span class="dot"></span><span id="connLabel">CONNECT</span></button>
     </div>
   </header>
 
   <nav id="tabs">
     <button data-tab="matrix" class="active">MATRIX</button>
-    <button data-tab="gain">GAIN</button>
-    <button data-tab="xover">X-OVER</button>
-    <button data-tab="peq">PEQ</button>
-    <button data-tab="delay">DELAY</button>
-    <button data-tab="limiter">LIMITER</button>
+    <button data-tab="strip">CHANNEL STRIP</button>
     <button data-tab="rta">RTA</button>
     <button data-tab="preset">PRESET</button>
   </nav>
@@ -143,7 +156,7 @@
 
 <script>
 /* ============================================================
-   DLMS MINI XTA — BLE CONTROL PROTOCOL
+   DLMS MINI 240 — BLE CONTROL PROTOCOL
    Service + 3 Characteristics: CONTROL(write), STATUS(notify), RTA(notify)
    Paket CONTROL: byte0 = cmd_id, sisanya payload (little-endian utk int16)
    ============================================================ */
@@ -277,11 +290,7 @@ function bindChSelector(){
 
 function render(){
   if(currentTab==='matrix') renderMatrix();
-  else if(currentTab==='gain') renderGain();
-  else if(currentTab==='xover') renderXover();
-  else if(currentTab==='peq') renderPeq();
-  else if(currentTab==='delay') renderDelay();
-  else if(currentTab==='limiter') renderLimiter();
+  else if(currentTab==='strip') renderStrip();
   else if(currentTab==='rta') renderRta();
   else if(currentTab==='preset') renderPreset();
 }
@@ -303,145 +312,190 @@ function renderMatrix(){
   });
 }
 
-function renderGain(){
-  let html = `<div class="panel"><h3>Input / Output Gain</h3>${chSelector(4)}
-    <div class="sliderow"><div class="top"><span class="lbl">Gain CH ${activeCh+1}</span>
-    <span class="val" id="gainVal">${state.gain[activeCh]>0?'+':''}${state.gain[activeCh]} dB</span></div>
-    <input type="range" min="-24" max="24" step="1" value="${state.gain[activeCh]}" id="gainSlider"></div></div>
-
-    <div class="panel"><h3>Mute Channel</h3><div class="grid3">
-    <button class="toggle ${state.mute[0]?'mute-on':''}" data-mute="0">IN 1</button>
-    <button class="toggle ${state.mute[1]?'mute-on':''}" data-mute="1">IN 2</button>
-    <div></div>
-    <button class="toggle ${state.mute[2]?'mute-on':''}" data-mute="2">OUT 1</button>
-    <button class="toggle ${state.mute[3]?'mute-on':''}" data-mute="3">OUT 2</button>
-    <button class="toggle ${state.mute[4]?'mute-on':''}" data-mute="4">OUT 3</button>
-    </div><div class="grid3" style="margin-top:8px"><button class="toggle ${state.mute[5]?'mute-on':''}" data-mute="5">OUT 4</button></div></div>`;
-  main.innerHTML = html;
-  bindChSelector();
-  const slider = document.getElementById('gainSlider');
-  slider.addEventListener('input', ()=>{
-    document.getElementById('gainVal').textContent = (slider.value>0?'+':'')+slider.value+' dB';
-  });
-  slider.addEventListener('change', ()=>{
-    state.gain[activeCh]=+slider.value;
-    sendCmd(CMD.SET_GAIN, [activeCh, ...i16le(state.gain[activeCh])]);
-  });
-  main.querySelectorAll('[data-mute]').forEach(b=>{
-    b.addEventListener('click', ()=>{
-      const i=+b.dataset.mute; state.mute[i]=!state.mute[i];
-      let mask=0; state.mute.forEach((m,idx)=>{ if(m) mask |= (1<<idx); });
-      sendCmd(CMD.SET_MUTE, [mask]); render();
-    });
-  });
-}
-
-function renderXover(){
+function renderStrip(){
   const hpf=state.xoverHpf[activeCh], lpf=state.xoverLpf[activeCh];
-  let html = `<div class="panel"><h3>Crossover Frequency</h3>${chSelector(4)}
-    <div class="sliderow"><div class="top"><span class="lbl">HPF (High Pass)</span><span class="val" id="hpfVal">${hpf} Hz</span></div>
-    <input type="range" min="20" max="2000" step="1" value="${hpf}" id="hpfSlider"></div>
-    <div class="sliderow"><div class="top"><span class="lbl">LPF (Low Pass)</span><span class="val" id="lpfVal">${lpf} Hz</span></div>
-    <input type="range" min="200" max="20000" step="10" value="${lpf}" id="lpfSlider"></div>
-    <p class="hint">Filter Linkwitz-Riley 24dB/oktaf. HPF memotong frekuensi rendah, LPF memotong frekuensi tinggi.</p></div>`;
-  main.innerHTML = html;
-  bindChSelector();
-  const hs=document.getElementById('hpfSlider'), ls=document.getElementById('lpfSlider');
-  hs.addEventListener('input', ()=> document.getElementById('hpfVal').textContent = hs.value+' Hz');
-  ls.addEventListener('input', ()=> document.getElementById('lpfVal').textContent = ls.value+' Hz');
-  hs.addEventListener('change', ()=>{ state.xoverHpf[activeCh]=+hs.value; sendCmd(CMD.SET_XOVER_HPF,[activeCh,...i16le(+hs.value)]); });
-  ls.addEventListener('change', ()=>{ state.xoverLpf[activeCh]=+ls.value; sendCmd(CMD.SET_XOVER_LPF,[activeCh,...i16le(+ls.value)]); });
-}
-
-function renderPeq(){
   const fIdx = state.peqFreqIdx[activeCh][activeBand];
-  const gain = state.peqGain[activeCh][activeBand]/10;
+  const peqGain = state.peqGain[activeCh][activeBand]/10;
   const q = state.peqQ[activeCh][activeBand]/10;
+  const d = state.delay[activeCh];
+  const th=state.limThresh[activeCh], at=state.limAttack[activeCh], rl=state.limRelease[activeCh];
+  const muteLabels=['IN 1','IN 2','OUT 1','OUT 2','OUT 3','OUT 4'];
+
   let bands='<div class="bandrow">';
   for(let b=0;b<9;b++) bands += `<button data-band="${b}" class="${activeBand===b?'active':''}">${b+1}</button>`;
   bands += '</div>';
 
-  let html = `<div class="panel"><h3>Parametric EQ</h3>${chSelector(4)}${bands}
-    <div class="sliderow"><div class="top"><span class="lbl">Frequency</span><span class="val" id="peqFreqVal">${FREQ_ISO[fIdx]} Hz</span></div>
-    <input type="range" min="0" max="32" step="1" value="${fIdx}" id="peqFreqSlider"></div>
-    <div class="sliderow"><div class="top"><span class="lbl">Gain</span><span class="val" id="peqGainVal">${gain>0?'+':''}${gain.toFixed(1)} dB</span></div>
-    <input type="range" min="-12" max="12" step="0.1" value="${gain}" id="peqGainSlider"></div>
-    <div class="sliderow"><div class="top"><span class="lbl">Q Factor</span><span class="val" id="peqQVal">${q.toFixed(1)}</span></div>
-    <input type="range" min="0.3" max="10" step="0.1" value="${q}" id="peqQSlider"></div></div>`;
+  let html = `
+    <div class="panel">${chSelector(4)}
+      <div class="jumprow">
+        <button data-jump="secGain">GAIN</button>
+        <button data-jump="secHpf">HPF</button>
+        <button data-jump="secLpf">LPF</button>
+        <button data-jump="secPeq">PEQ</button>
+        <button data-jump="secDelay">DELAY</button>
+        <button data-jump="secLim">LIMITER</button>
+      </div>
+      <div class="toggle ${state.mute[activeCh+2]?'mute-on':''}" id="stripMuteBtn" style="text-align:center; margin-top:4px;">
+        ${state.mute[activeCh+2] ? 'MUTED' : 'MUTE CH '+(activeCh+1)}
+      </div>
+    </div>
+
+    <div class="panel" id="secGain"><h3>Gain — Channel ${activeCh+1}</h3>
+      <div class="sliderow"><div class="top"><span class="lbl">Gain</span>
+      <span class="val" id="gainVal">${state.gain[activeCh]>0?'+':''}${state.gain[activeCh]} dB</span></div>
+      <input type="range" min="-24" max="24" step="1" value="${state.gain[activeCh]}" id="gainSlider"></div>
+      <div class="meterrow"><span class="mlabel">VU</span><div class="meterbar"><i id="vuBar"></i></div></div>
+      <div class="meterrow gr"><span class="mlabel">GR</span><div class="meterbar gr"><i id="grBar"></i></div></div>
+    </div>
+
+    <div class="panel" id="secHpf"><h3>High Pass Filter (HPF 24dB)</h3>
+      <div class="sliderow"><div class="top"><span class="lbl">Frequency</span><span class="val" id="hpfVal">${hpf} Hz</span></div>
+      <input type="range" min="20" max="2000" step="1" value="${hpf}" id="hpfSlider"></div>
+    </div>
+
+    <div class="panel" id="secLpf"><h3>Low Pass Filter (LPF 24dB)</h3>
+      <div class="sliderow"><div class="top"><span class="lbl">Frequency</span><span class="val" id="lpfVal">${lpf} Hz</span></div>
+      <input type="range" min="200" max="20000" step="10" value="${lpf}" id="lpfSlider"></div>
+      <p class="hint">Linkwitz-Riley 24dB/oktaf. HPF memotong frekuensi rendah, LPF memotong frekuensi tinggi.</p>
+    </div>
+
+    <div class="panel" id="secPeq"><h3>PEQ Boost/Cut (Freq / Gain)</h3>${bands}
+      <div class="sliderow"><div class="top"><span class="lbl">Frequency</span><span class="val" id="peqFreqVal">${FREQ_ISO[fIdx]} Hz</span></div>
+      <input type="range" min="0" max="32" step="1" value="${fIdx}" id="peqFreqSlider"></div>
+      <div class="sliderow"><div class="top"><span class="lbl">Gain</span><span class="val" id="peqGainVal">${peqGain>0?'+':''}${peqGain.toFixed(1)} dB</span></div>
+      <input type="range" min="-12" max="12" step="0.1" value="${peqGain}" id="peqGainSlider"></div>
+      <div class="sliderow"><div class="top"><span class="lbl">Q Factor</span><span class="val" id="peqQVal">${q.toFixed(1)}</span></div>
+      <input type="range" min="0.3" max="10" step="0.1" value="${q}" id="peqQSlider"></div>
+    </div>
+
+    <div class="panel" id="secDelay"><h3>Time Alignment Delay</h3>
+      <div class="sliderow"><div class="top"><span class="lbl">Delay</span>
+      <span class="val" id="delayVal">${d.toFixed(1)} ms</span></div>
+      <input type="range" min="0" max="300" step="0.1" value="${d}" id="delaySlider"></div>
+    </div>
+
+    <div class="panel" id="secLim"><h3>Limiter Threshold</h3>
+      <div class="sliderow"><div class="top"><span class="lbl">Threshold</span><span class="val" id="thVal">${th} dB</span></div>
+      <input type="range" min="-24" max="0" step="0.5" value="${th}" id="thSlider"></div>
+      <div class="sliderow"><div class="top"><span class="lbl">Attack</span><span class="val" id="atVal">${at} ms</span></div>
+      <input type="range" min="1" max="100" step="1" value="${at}" id="atSlider"></div>
+      <div class="sliderow"><div class="top"><span class="lbl">Release</span><span class="val" id="rlVal">${rl} ms</span></div>
+      <input type="range" min="10" max="1000" step="10" value="${rl}" id="rlSlider"></div>
+      <div class="meterrow"><span class="mlabel">VU</span><div class="meterbar"><i></i></div></div>
+      <div class="meterrow gr"><span class="mlabel">GR</span><div class="meterbar gr"><i></i></div></div>
+    </div>
+  `;
   main.innerHTML = html;
   bindChSelector();
-  main.querySelectorAll('[data-band]').forEach(b=>{
-    b.addEventListener('click', ()=>{ activeBand=+b.dataset.band; render(); });
+
+  main.querySelectorAll('[data-jump]').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      document.getElementById(b.dataset.jump).scrollIntoView({behavior:'smooth', block:'start'});
+    });
   });
-  const fs=document.getElementById('peqFreqSlider'), gs=document.getElementById('peqGainSlider'), qs=document.getElementById('peqQSlider');
+
+  document.getElementById('stripMuteBtn').addEventListener('click', ()=>{
+    const idx = activeCh+2;
+    state.mute[idx] = !state.mute[idx];
+    let mask=0; state.mute.forEach((m,i)=>{ if(m) mask |= (1<<i); });
+    sendCmd(CMD.SET_MUTE, [mask]); render();
+  });
+
+  const gs=document.getElementById('gainSlider');
+  gs.addEventListener('input', ()=> document.getElementById('gainVal').textContent = (gs.value>0?'+':'')+gs.value+' dB');
+  gs.addEventListener('change', ()=>{ state.gain[activeCh]=+gs.value; sendCmd(CMD.SET_GAIN,[activeCh,...i16le(+gs.value)]); });
+
+  const hs=document.getElementById('hpfSlider');
+  hs.addEventListener('input', ()=> document.getElementById('hpfVal').textContent = hs.value+' Hz');
+  hs.addEventListener('change', ()=>{ state.xoverHpf[activeCh]=+hs.value; sendCmd(CMD.SET_XOVER_HPF,[activeCh,...i16le(+hs.value)]); });
+
+  const ls=document.getElementById('lpfSlider');
+  ls.addEventListener('input', ()=> document.getElementById('lpfVal').textContent = ls.value+' Hz');
+  ls.addEventListener('change', ()=>{ state.xoverLpf[activeCh]=+ls.value; sendCmd(CMD.SET_XOVER_LPF,[activeCh,...i16le(+ls.value)]); });
+
+  main.querySelectorAll('[data-band]').forEach(b=>{
+    b.addEventListener('click', ()=>{ activeBand=+b.dataset.band; render(); setTimeout(()=>document.getElementById('secPeq').scrollIntoView({behavior:'auto',block:'start'}),0); });
+  });
+  const fs=document.getElementById('peqFreqSlider'), pgs=document.getElementById('peqGainSlider'), qs=document.getElementById('peqQSlider');
   fs.addEventListener('input', ()=> document.getElementById('peqFreqVal').textContent = FREQ_ISO[+fs.value]+' Hz');
-  gs.addEventListener('input', ()=>{ const v=+gs.value; document.getElementById('peqGainVal').textContent=(v>0?'+':'')+v.toFixed(1)+' dB'; });
+  pgs.addEventListener('input', ()=>{ const v=+pgs.value; document.getElementById('peqGainVal').textContent=(v>0?'+':'')+v.toFixed(1)+' dB'; });
   qs.addEventListener('input', ()=> document.getElementById('peqQVal').textContent = (+qs.value).toFixed(1));
   function sendPeq(){
-    const freqIdx=+fs.value, gainX10=Math.round(+gs.value*10), qX10=Math.round(+qs.value*10);
-    state.peqFreqIdx[activeCh][activeBand]=freqIdx;
-    state.peqGain[activeCh][activeBand]=gainX10;
-    state.peqQ[activeCh][activeBand]=qX10;
+    const freqIdx=+fs.value, gainX10=Math.round(+pgs.value*10), qX10=Math.round(+qs.value*10);
+    state.peqFreqIdx[activeCh][activeBand]=freqIdx; state.peqGain[activeCh][activeBand]=gainX10; state.peqQ[activeCh][activeBand]=qX10;
     sendCmd(CMD.SET_PEQ, [activeCh, activeBand, freqIdx, ...i16le(gainX10), ...u16le(qX10)]);
   }
-  fs.addEventListener('change', sendPeq); gs.addEventListener('change', sendPeq); qs.addEventListener('change', sendPeq);
-}
+  fs.addEventListener('change', sendPeq); pgs.addEventListener('change', sendPeq); qs.addEventListener('change', sendPeq);
 
-function renderDelay(){
-  const d = state.delay[activeCh];
-  let html = `<div class="panel"><h3>Audio Delay</h3>${chSelector(4)}
-    <div class="sliderow"><div class="top"><span class="lbl">Delay CH ${activeCh+1}</span>
-    <span class="val" id="delayVal">${d.toFixed(1)} ms</span></div>
-    <input type="range" min="0" max="300" step="0.1" value="${d}" id="delaySlider"></div>
-    <p class="hint">Delay per channel untuk time-alignment antar speaker. Crossfade otomatis diterapkan saat nilai berubah.</p></div>`;
-  main.innerHTML = html;
-  bindChSelector();
   const ds=document.getElementById('delaySlider');
   ds.addEventListener('input', ()=> document.getElementById('delayVal').textContent = (+ds.value).toFixed(1)+' ms');
   ds.addEventListener('change', ()=>{
     state.delay[activeCh]=+ds.value;
-    const valInt = Math.round(+ds.value*10); // kirim x10 spy presisi 0.1ms tetap terjaga di int16
-    sendCmd(CMD.SET_DELAY, [activeCh, ...i16le(valInt)]);
+    sendCmd(CMD.SET_DELAY, [activeCh, ...i16le(Math.round(+ds.value*10))]);
   });
-}
 
-function renderLimiter(){
-  const th=state.limThresh[activeCh], at=state.limAttack[activeCh], rl=state.limRelease[activeCh];
-  let html = `<div class="panel"><h3>Limiter</h3>${chSelector(4)}
-    <div class="sliderow"><div class="top"><span class="lbl">Threshold</span><span class="val" id="thVal">${th} dB</span></div>
-    <input type="range" min="-24" max="0" step="0.5" value="${th}" id="thSlider"></div>
-    <div class="sliderow"><div class="top"><span class="lbl">Attack</span><span class="val" id="atVal">${at} ms</span></div>
-    <input type="range" min="1" max="100" step="1" value="${at}" id="atSlider"></div>
-    <div class="sliderow"><div class="top"><span class="lbl">Release</span><span class="val" id="rlVal">${rl} ms</span></div>
-    <input type="range" min="10" max="1000" step="10" value="${rl}" id="rlSlider"></div></div>`;
-  main.innerHTML = html;
-  bindChSelector();
   const ths=document.getElementById('thSlider'), ats=document.getElementById('atSlider'), rls=document.getElementById('rlSlider');
   ths.addEventListener('input', ()=> document.getElementById('thVal').textContent = (+ths.value).toFixed(1)+' dB');
   ats.addEventListener('input', ()=> document.getElementById('atVal').textContent = ats.value+' ms');
   rls.addEventListener('input', ()=> document.getElementById('rlVal').textContent = rls.value+' ms');
   function sendLim(){
-    const thX10=Math.round(+ths.value*10);
     state.limThresh[activeCh]=+ths.value; state.limAttack[activeCh]=+ats.value; state.limRelease[activeCh]=+rls.value;
-    sendCmd(CMD.SET_LIMITER, [activeCh, ...i16le(thX10), ...u16le(+ats.value), ...u16le(+rls.value)]);
+    sendCmd(CMD.SET_LIMITER, [activeCh, ...i16le(Math.round(+ths.value*10)), ...u16le(+ats.value), ...u16le(+rls.value)]);
   }
   ths.addEventListener('change', sendLim); ats.addEventListener('change', sendLim); rls.addEventListener('change', sendLim);
 }
 
 function renderRta(){
-  let bars=''; for(let i=0;i<9;i++) bars += `<div class="bar" id="rtabar${i}" style="height:2px"></div>`;
   let labels=''; for(let i=0;i<9;i++) labels += `<span>${RTA_FREQ[i]?(RTA_FREQ[i]>=1000?(RTA_FREQ[i]/1000)+'k':RTA_FREQ[i]):''}</span>`;
-  main.innerHTML = `<div class="panel"><h3>RTA Analyzer — Live</h3>
-    <div class="rta">${bars}</div><div class="rtalabels">${labels}</div>
-    <p class="hint">Menampilkan spektrum real-time dari board (9-band). Data diterima via BLE notify.</p></div>`;
-  renderRtaBars();
+  main.innerHTML = `<div class="panel"><h3>RTA Spectrum &amp; Crossover Curve Analyzer</h3>
+    <div class="legend">
+      <span><i style="background:var(--mint)"></i>CH L</span>
+      <span><i style="background:var(--cyan)"></i>CH R</span>
+    </div>
+    <div class="graphwrap"><canvas id="rtaCanvas" width="600" height="360"></canvas></div>
+    <div class="rtalabels">${labels}</div>
+    <p class="hint">Spektrum real-time (bar) + kurva respons crossover HPF/LPF (garis putus-putus) untuk channel aktif.</p></div>`;
+  drawRtaCanvas();
+}
+function drawRtaCanvas(){
+  const cv = document.getElementById('rtaCanvas'); if(!cv) return;
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  ctx.clearRect(0,0,W,H);
+  // grid halus
+  ctx.strokeStyle = 'rgba(60,90,120,0.25)'; ctx.lineWidth = 1;
+  for(let i=1;i<4;i++){ const y=H/4*i; ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+  // bar spektrum (mint, dari rtaVals)
+  const n = rtaVals.length; const bw = W/n;
+  for(let i=0;i<n;i++){
+    const h = Math.max(2, (rtaVals[i]/255)*H*0.95);
+    const grad = ctx.createLinearGradient(0,H-h,0,H);
+    grad.addColorStop(0,'#3ec9e8'); grad.addColorStop(1,'#3ee89a');
+    ctx.fillStyle = grad;
+    ctx.fillRect(i*bw+2, H-h, bw-4, h);
+  }
+  // kurva crossover overlay (garis putus-putus cyan), pakai HPF/LPF channel aktif
+  const hpf = state.xoverHpf[activeCh], lpf = state.xoverLpf[activeCh];
+  ctx.setLineDash([6,5]); ctx.strokeStyle = '#3ec9e8'; ctx.lineWidth = 2.5; ctx.beginPath();
+  const freqToX = (f)=> (Math.log10(f/20)/Math.log10(20000/20)) * W;
+  const pts = [];
+  for(let x=0; x<=W; x+=4){
+    const freq = 20 * Math.pow(1000, x/W);
+    let db = 0;
+    const rh = freq/hpf, rl = freq/lpf;
+    const dbH = 10*Math.log10(Math.pow(rh,8)/(1+Math.pow(rh,8))+1e-9);
+    const dbL = 10*Math.log10(1/(1+Math.pow(rl,8))+1e-9);
+    db = Math.max(dbH, dbL - 40) ; // gabungan sederhana buat visual
+    db = Math.min(dbH, 0);
+    const y = H*0.15 - (db/30)*H*0.5;
+    pts.push([x, Math.min(H-2,Math.max(2,y))]);
+  }
+  pts.forEach(([x,y],idx)=> idx===0? ctx.moveTo(x,y) : ctx.lineTo(x,y));
+  ctx.stroke(); ctx.setLineDash([]);
 }
 function renderRtaBars(){
   if(currentTab!=='rta') return;
-  for(let i=0;i<9;i++){
-    const el=document.getElementById('rtabar'+i);
-    if(el) el.style.height = Math.max(2, rtaVals[i]*1.5) + 'px';
-  }
+  drawRtaCanvas();
 }
 
 function renderPreset(){
