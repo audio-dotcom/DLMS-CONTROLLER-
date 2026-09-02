@@ -29,7 +29,6 @@
     overscroll-behavior:none; user-select:none;}
   #app{max-width:520px; margin:0 auto; min-height:100vh; display:flex; flex-direction:column;}
 
-  /* ---------- TOP BAR ---------- */
   header{padding:14px 16px 10px; border-bottom:1px solid var(--line); background:linear-gradient(180deg,#0d1220,#0a0e17);}
   .brandrow{display:flex; align-items:center; justify-content:space-between;}
   .brand{display:flex; flex-direction:column; line-height:1.1;}
@@ -41,7 +40,6 @@
   .dot{width:7px; height:7px; border-radius:50%; background:var(--textdim);}
   .connbtn.on .dot{background:var(--mint); box-shadow:0 0 6px var(--mint);}
 
-  /* ---------- TABS ---------- */
   nav{display:flex; overflow-x:auto; gap:2px; padding:8px 10px; background:var(--bg);
     border-bottom:1px solid var(--line); -ms-overflow-style:none; scrollbar-width:none;}
   nav::-webkit-scrollbar{display:none;}
@@ -53,27 +51,23 @@
   .panel{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:14px; margin-bottom:14px;}
   .panel h3{margin:0 0 12px; font-size:11px; letter-spacing:.14em; color:var(--mint); font-weight:700; text-transform:uppercase;}
 
-  /* ---------- CHANNEL PICKER ---------- */
   .chsel{display:flex; gap:6px; margin-bottom:14px;}
   .chsel button{flex:1; padding:10px 0; background:var(--panel2); border:1px solid var(--line); border-radius:9px;
     color:var(--textdim); font-size:12px; font-weight:700; font-family:var(--mono);}
   .chsel button.active{background:#0e2c36; border-color:var(--cyan-dim); color:var(--cyan);}
 
-  /* ---------- ROWS ---------- */
   .row{display:flex; align-items:center; justify-content:space-between; padding:11px 2px; border-bottom:1px solid var(--line);}
   .row:last-child{border-bottom:none;}
   .row .lbl{font-size:12px; color:var(--text); font-weight:500;}
   .row .sub{font-size:10px; color:var(--textdim); margin-top:1px;}
   .val{font-family:var(--mono); font-size:14px; color:var(--amber); font-weight:600; min-width:56px; text-align:right;}
 
-  /* ---------- SLIDER ---------- */
   .sliderow{padding:10px 2px 14px;}
   .sliderow .top{display:flex; justify-content:space-between; margin-bottom:8px;}
   input[type=range]{-webkit-appearance:none; width:100%; height:4px; border-radius:2px; background:var(--line); outline:none;}
   input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:20px; height:20px; border-radius:50%;
     background:var(--cyan); border:3px solid #0a0e17; box-shadow:0 0 8px var(--cyan-dim);}
 
-  /* ---------- MINI VU/GR METER ---------- */
   .meterrow{display:flex; align-items:center; gap:8px; margin-top:6px;}
   .meterrow .mlabel{font-size:9px; color:var(--mint); width:20px; font-weight:700;}
   .meterrow.gr .mlabel{color:var(--red);}
@@ -82,7 +76,6 @@
     background:linear-gradient(90deg, var(--mint), var(--amber) 70%, var(--red) 92%);}
   .meterbar.gr i{background:var(--red); width:8%;}
 
-  /* ---------- BUTTON GRID (mute / route) ---------- */
   .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
   .grid2{display:grid; grid-template-columns:repeat(2,1fr); gap:8px;}
   .toggle{padding:12px 6px; border-radius:9px; background:var(--panel2); border:1px solid var(--line);
@@ -90,39 +83,34 @@
   .toggle.mute-on{background:#3a1420; border-color:#5c2338; color:var(--red);}
   .toggle.route-on{background:#0e2c22; border-color:#1c5a3e; color:var(--mint);}
 
-  /* ---------- PEQ BAND SELECTOR ---------- */
   .bandrow{display:grid; grid-template-columns:repeat(9,1fr); gap:4px; margin-bottom:14px;}
   .bandrow button{aspect-ratio:1; border-radius:7px; background:var(--panel2); border:1px solid var(--line);
     color:var(--textdim); font-family:var(--mono); font-size:11px; font-weight:700;}
   .bandrow button.active{background:var(--cyan); color:#08121a; border-color:var(--cyan);}
 
-  /* ---------- RTA + XOVER COMBINED GRAPH ---------- */
   .graphwrap{background:#060a12; border-radius:10px; border:1px solid var(--line); padding:10px;}
   .legend{display:flex; gap:12px; justify-content:flex-end; margin-bottom:6px; flex-wrap:wrap;}
   .legend span{font-size:9px; color:var(--textdim); display:flex; align-items:center; gap:4px;}
   .legend i{width:8px; height:8px; border-radius:2px; display:inline-block;}
-  canvas#rtaCanvas{width:100%; height:180px; display:block;}
+  canvas#rtaCanvas{width:100%; height:200px; display:block;}
   .rtalabels{display:flex; gap:3px; margin-top:6px;}
-  .rtalabels span{flex:1; text-align:center; font-size:8px; color:var(--textdim); font-family:var(--mono);}
+  .rtalabels span{flex:1; text-align:center; font-size:9px; color:var(--textdim); font-family:var(--mono); font-weight:700;}
 
-  /* ---------- QUICK JUMP ROW ---------- */
   .jumprow{display:flex; gap:6px; overflow-x:auto; margin-top:12px; -ms-overflow-style:none; scrollbar-width:none;}
   .jumprow::-webkit-scrollbar{display:none;}
   .jumprow button{flex:0 0 auto; background:var(--cyan); color:#08121a; border:none; border-radius:7px;
     padding:9px 14px; font-size:10px; font-weight:700; font-family:var(--mono); letter-spacing:.06em;}
 
-  /* ---------- PRESET ---------- */
   .presetlist button{width:100%; text-align:left; padding:13px 12px; margin-bottom:8px; border-radius:10px;
     background:var(--panel2); border:1px solid var(--line); color:var(--text); font-size:12px; font-weight:600;
     display:flex; justify-content:space-between; align-items:center; font-family:var(--mono);}
   .presetlist button .tag{font-size:10px; color:var(--textdim); font-family:var(--mono); font-weight:400;}
 
-  .save-row{display:flex; gap:8px; margin-top:10px;}
-  .btn{flex:1; padding:12px; border-radius:10px; border:1px solid var(--line); background:var(--panel2);
-    color:var(--text); font-size:11px; font-weight:700; letter-spacing:.05em; font-family:var(--mono);}
+  .save-row{display:grid; grid-template-columns:repeat(5,1fr); gap:6px; margin-top:10px;}
+  .btn{padding:11px 4px; border-radius:10px; border:1px solid var(--line); background:var(--panel2);
+    color:var(--text); font-size:10px; font-weight:700; letter-spacing:.03em; font-family:var(--mono);}
   .btn.primary{background:var(--cyan); color:#08121a; border-color:var(--cyan);}
 
-  /* ---------- TOAST ---------- */
   #toast{position:fixed; bottom:20px; left:50%; transform:translateX(-50%) translateY(120%); background:var(--panel2);
     border:1px solid var(--line); color:var(--text); padding:11px 20px; border-radius:24px; font-size:11px; font-weight:600;
     transition:transform .25s ease; z-index:50; box-shadow:0 8px 24px rgba(0,0,0,.5); font-family:var(--mono);}
@@ -145,7 +133,7 @@
   <nav id="tabs">
     <button data-tab="matrix" class="active">MATRIX</button>
     <button data-tab="strip">CHANNEL STRIP</button>
-    <button data-tab="rta">RTA</button>
+    <button data-tab="rta">LEVEL METER</button>
     <button data-tab="preset">PRESET</button>
   </nav>
 
@@ -163,7 +151,7 @@
 const SERVICE_UUID   = '4fafc201-1fb5-459e-8fcc-c5c9c331914b';
 const CHAR_CONTROL    = 'beb5483e-36e1-4688-b7f5-ea07361b26a8'; // write
 const CHAR_STATUS     = 'beb5483e-36e1-4688-b7f5-ea07361b26a9'; // notify (full state dump)
-const CHAR_RTA        = 'beb5483e-36e1-4688-b7f5-ea07361b26aa'; // notify (9-band spektrum)
+const CHAR_RTA        = 'beb5483e-36e1-4688-b7f5-ea07361b26aa'; // notify (6-channel level meter)
 
 const CMD = {
   SET_ROUTE:0x01, SET_GAIN:0x02, SET_MUTE:0x03, SET_XOVER_HPF:0x04, SET_XOVER_LPF:0x05,
@@ -172,13 +160,12 @@ const CMD = {
 };
 
 let device=null, controlChar=null, connected=false;
-let activeCh = 0;       // channel aktif untuk gain/xover/peq/delay/limiter (0-3)
-let activeBand = 0;     // band PEQ aktif (0-8)
+let activeCh = 0;
+let activeBand = 0;
 
 const FREQ_ISO = [20,22,25,28,32,40,50,63,80,100,125,160,200,250,315,400,500,630,800,1000,1250,1600,2000,2500,3150,4000,5000,6300,8000,10000,12500,16000,20000];
-const RTA_FREQ = [63,160,400,1000,2500,6300,16000]; // contoh 7-9 band label, sesuaikan dgn firmware RTA_BANDS
+const METER_LABELS = ['IN-L','IN-R','OUT1','OUT2','OUT3','OUT4'];
 
-// State lokal (disinkron dari STATUS notify pas connect)
 const state = {
   route:[0,1,2,2], gain:[0,0,0,0], mute:[false,false,false,false,false,false],
   xoverHpf:[20,20,20,20], xoverLpf:[20000,20000,20000,20000],
@@ -186,7 +173,7 @@ const state = {
   peqGain:[[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]],
   peqQ:[[10,10,10,10,10,10,10,10,10],[10,10,10,10,10,10,10,10,10],[10,10,10,10,10,10,10,10,10],[10,10,10,10,10,10,10,10,10]],
   delay:[0,0,0,0],
-  limThresh:[0,0,0,0], limAttack:[10,10,10,10], limRelease:[100,100,100,100],
+  limThresh:[0,0,0,0], limRatio:[4,4,4,4], limAttack:[10,10,10,10], limRelease:[100,100,100,100],
   presets:['PRESET 1','PRESET 2','PRESET 3','PRESET 4','PRESET 5']
 };
 
@@ -241,15 +228,16 @@ function i16le(v){ const b=new ArrayBuffer(2); new DataView(b).setInt16(0,v,true
 function u16le(v){ const b=new ArrayBuffer(2); new DataView(b).setUint16(0,v,true); return Array.from(new Uint8Array(b)); }
 
 function onStatusNotify(e){
-  // Format status dump dari firmware perlu disepakati & di-parse sesuai layout struct PresetData.
-  // Placeholder: cukup refresh tampilan dgn state lokal utk sekarang.
+  // Format status dump firmware: route[4] u8, gain[4] i16, hpf[4] u16, lpf[4] u16, muteMask u8
+  // (belum dipakai penuh di sini -> tampilan masih dari state lokal; parsing lengkap bisa ditambah belakangan)
   render();
 }
-let rtaVals = new Array(9).fill(0);
+
+let meterVals = new Array(6).fill(0); // IN-L, IN-R, OUT1-4, skala 0-255
 function onRtaNotify(e){
   const dv = e.target.value;
-  for(let i=0;i<dv.byteLength && i<9;i++) rtaVals[i] = dv.getUint8(i);
-  if(currentTab==='rta') renderRtaBars();
+  for(let i=0;i<dv.byteLength && i<6;i++) meterVals[i] = dv.getUint8(i);
+  if(currentTab==='rta') drawMeterBars();
 }
 
 /* ---------------- TOAST ---------------- */
@@ -274,7 +262,7 @@ document.getElementById('connBtn').addEventListener('click', connectBLE);
 
 /* ---------------- RENDER ---------------- */
 const main = document.getElementById('main');
-function chSelector(count, target){
+function chSelector(count){
   let html = '<div class="chsel">';
   for(let i=0;i<count;i++){
     html += `<button data-ch="${i}" class="${activeCh===i?'active':''}">CH ${i+1}</button>`;
@@ -318,8 +306,7 @@ function renderStrip(){
   const peqGain = state.peqGain[activeCh][activeBand]/10;
   const q = state.peqQ[activeCh][activeBand]/10;
   const d = state.delay[activeCh];
-  const th=state.limThresh[activeCh], at=state.limAttack[activeCh], rl=state.limRelease[activeCh];
-  const muteLabels=['IN 1','IN 2','OUT 1','OUT 2','OUT 3','OUT 4'];
+  const th=state.limThresh[activeCh], ra=state.limRatio[activeCh], at=state.limAttack[activeCh], rl=state.limRelease[activeCh];
 
   let bands='<div class="bandrow">';
   for(let b=0;b<9;b++) bands += `<button data-band="${b}" class="${activeBand===b?'active':''}">${b+1}</button>`;
@@ -344,8 +331,6 @@ function renderStrip(){
       <div class="sliderow"><div class="top"><span class="lbl">Gain</span>
       <span class="val" id="gainVal">${state.gain[activeCh]>0?'+':''}${state.gain[activeCh]} dB</span></div>
       <input type="range" min="-24" max="24" step="1" value="${state.gain[activeCh]}" id="gainSlider"></div>
-      <div class="meterrow"><span class="mlabel">VU</span><div class="meterbar"><i id="vuBar"></i></div></div>
-      <div class="meterrow gr"><span class="mlabel">GR</span><div class="meterbar gr"><i id="grBar"></i></div></div>
     </div>
 
     <div class="panel" id="secHpf"><h3>High Pass Filter (HPF 24dB)</h3>
@@ -374,15 +359,16 @@ function renderStrip(){
       <input type="range" min="0" max="300" step="0.1" value="${d}" id="delaySlider"></div>
     </div>
 
-    <div class="panel" id="secLim"><h3>Limiter Threshold</h3>
+    <div class="panel" id="secLim"><h3>Compressor / Limiter</h3>
       <div class="sliderow"><div class="top"><span class="lbl">Threshold</span><span class="val" id="thVal">${th} dB</span></div>
-      <input type="range" min="-24" max="0" step="0.5" value="${th}" id="thSlider"></div>
+      <input type="range" min="-30" max="0" step="0.5" value="${th}" id="thSlider"></div>
+      <div class="sliderow"><div class="top"><span class="lbl">Ratio</span><span class="val" id="raVal">${ra>=50?'LIM':ra.toFixed(1)+':1'}</span></div>
+      <input type="range" min="1" max="100" step="0.5" value="${ra}" id="raSlider"></div>
       <div class="sliderow"><div class="top"><span class="lbl">Attack</span><span class="val" id="atVal">${at} ms</span></div>
       <input type="range" min="1" max="100" step="1" value="${at}" id="atSlider"></div>
       <div class="sliderow"><div class="top"><span class="lbl">Release</span><span class="val" id="rlVal">${rl} ms</span></div>
-      <input type="range" min="10" max="1000" step="10" value="${rl}" id="rlSlider"></div>
-      <div class="meterrow"><span class="mlabel">VU</span><div class="meterbar"><i></i></div></div>
-      <div class="meterrow gr"><span class="mlabel">GR</span><div class="meterbar gr"><i></i></div></div>
+      <input type="range" min="10" max="5000" step="10" value="${rl}" id="rlSlider"></div>
+      <p class="hint">Ratio 1:1 = transparan (gak ada kompresi). Ratio tinggi (mendekati LIM) = brickwall limiter.</p>
     </div>
   `;
   main.innerHTML = html;
@@ -434,68 +420,60 @@ function renderStrip(){
     sendCmd(CMD.SET_DELAY, [activeCh, ...i16le(Math.round(+ds.value*10))]);
   });
 
-  const ths=document.getElementById('thSlider'), ats=document.getElementById('atSlider'), rls=document.getElementById('rlSlider');
+  const ths=document.getElementById('thSlider'), ras=document.getElementById('raSlider'), ats=document.getElementById('atSlider'), rls=document.getElementById('rlSlider');
   ths.addEventListener('input', ()=> document.getElementById('thVal').textContent = (+ths.value).toFixed(1)+' dB');
+  ras.addEventListener('input', ()=>{ const v=+ras.value; document.getElementById('raVal').textContent = v>=50?'LIM':v.toFixed(1)+':1'; });
   ats.addEventListener('input', ()=> document.getElementById('atVal').textContent = ats.value+' ms');
   rls.addEventListener('input', ()=> document.getElementById('rlVal').textContent = rls.value+' ms');
   function sendLim(){
-    state.limThresh[activeCh]=+ths.value; state.limAttack[activeCh]=+ats.value; state.limRelease[activeCh]=+rls.value;
-    sendCmd(CMD.SET_LIMITER, [activeCh, ...i16le(Math.round(+ths.value*10)), ...u16le(+ats.value), ...u16le(+rls.value)]);
+    state.limThresh[activeCh]=+ths.value; state.limRatio[activeCh]=+ras.value;
+    state.limAttack[activeCh]=+ats.value; state.limRelease[activeCh]=+rls.value;
+    sendCmd(CMD.SET_LIMITER, [
+      activeCh,
+      ...i16le(Math.round(+ths.value*10)),
+      ...u16le(+ats.value),
+      ...u16le(+rls.value),
+      ...i16le(Math.round(+ras.value*10))
+    ]);
   }
-  ths.addEventListener('change', sendLim); ats.addEventListener('change', sendLim); rls.addEventListener('change', sendLim);
+  ths.addEventListener('change', sendLim); ras.addEventListener('change', sendLim);
+  ats.addEventListener('change', sendLim); rls.addEventListener('change', sendLim);
 }
 
 function renderRta(){
-  let labels=''; for(let i=0;i<9;i++) labels += `<span>${RTA_FREQ[i]?(RTA_FREQ[i]>=1000?(RTA_FREQ[i]/1000)+'k':RTA_FREQ[i]):''}</span>`;
-  main.innerHTML = `<div class="panel"><h3>RTA Spectrum &amp; Crossover Curve Analyzer</h3>
+  let labels=''; METER_LABELS.forEach(l=> labels += `<span>${l}</span>`);
+  main.innerHTML = `<div class="panel"><h3>Level Meter — Input &amp; Output</h3>
     <div class="legend">
-      <span><i style="background:var(--mint)"></i>CH L</span>
-      <span><i style="background:var(--cyan)"></i>CH R</span>
+      <span><i style="background:var(--cyan)"></i>IN L/R</span>
+      <span><i style="background:var(--mint)"></i>OUT 1-4</span>
     </div>
     <div class="graphwrap"><canvas id="rtaCanvas" width="600" height="360"></canvas></div>
     <div class="rtalabels">${labels}</div>
-    <p class="hint">Spektrum real-time (bar) + kurva respons crossover HPF/LPF (garis putus-putus) untuk channel aktif.</p></div>`;
-  drawRtaCanvas();
+    <p class="hint">6 bar level real-time: 2 bar INPUT (sebelum DSP) dan 4 bar OUTPUT (setelah full signal chain: crossover, PEQ, delay, compressor/limiter, gain).</p></div>`;
+  drawMeterBars();
 }
-function drawRtaCanvas(){
+function drawMeterBars(){
   const cv = document.getElementById('rtaCanvas'); if(!cv) return;
   const ctx = cv.getContext('2d');
   const W = cv.width, H = cv.height;
   ctx.clearRect(0,0,W,H);
-  // grid halus
+
   ctx.strokeStyle = 'rgba(60,90,120,0.25)'; ctx.lineWidth = 1;
   for(let i=1;i<4;i++){ const y=H/4*i; ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
-  // bar spektrum (mint, dari rtaVals)
-  const n = rtaVals.length; const bw = W/n;
+
+  const n = 6, gap = 14, barW = (W - gap*(n+1)) / n;
   for(let i=0;i<n;i++){
-    const h = Math.max(2, (rtaVals[i]/255)*H*0.95);
+    const x = gap + i*(barW+gap);
+    const h = Math.max(2, (meterVals[i]/255)*H*0.95);
     const grad = ctx.createLinearGradient(0,H-h,0,H);
-    grad.addColorStop(0,'#3ec9e8'); grad.addColorStop(1,'#3ee89a');
-    ctx.fillStyle = grad;
-    ctx.fillRect(i*bw+2, H-h, bw-4, h);
+    grad.addColorStop(0, '#ff5c7a'); grad.addColorStop(0.35,'#ffc94a'); grad.addColorStop(1,'#3ee89a');
+    ctx.fillStyle = i<2 ? '#3ec9e8' : grad;
+    ctx.fillRect(x, H-h, barW, h);
   }
-  // kurva crossover overlay (garis putus-putus cyan), pakai HPF/LPF channel aktif
-  const hpf = state.xoverHpf[activeCh], lpf = state.xoverLpf[activeCh];
-  ctx.setLineDash([6,5]); ctx.strokeStyle = '#3ec9e8'; ctx.lineWidth = 2.5; ctx.beginPath();
-  const freqToX = (f)=> (Math.log10(f/20)/Math.log10(20000/20)) * W;
-  const pts = [];
-  for(let x=0; x<=W; x+=4){
-    const freq = 20 * Math.pow(1000, x/W);
-    let db = 0;
-    const rh = freq/hpf, rl = freq/lpf;
-    const dbH = 10*Math.log10(Math.pow(rh,8)/(1+Math.pow(rh,8))+1e-9);
-    const dbL = 10*Math.log10(1/(1+Math.pow(rl,8))+1e-9);
-    db = Math.max(dbH, dbL - 40) ; // gabungan sederhana buat visual
-    db = Math.min(dbH, 0);
-    const y = H*0.15 - (db/30)*H*0.5;
-    pts.push([x, Math.min(H-2,Math.max(2,y))]);
-  }
-  pts.forEach(([x,y],idx)=> idx===0? ctx.moveTo(x,y) : ctx.lineTo(x,y));
-  ctx.stroke(); ctx.setLineDash([]);
-}
-function renderRtaBars(){
-  if(currentTab!=='rta') return;
-  drawRtaCanvas();
+  // pemisah visual antara grup INPUT (2 bar) dan OUTPUT (4 bar)
+  const sepX = gap + 2*(barW+gap) - gap/2;
+  ctx.strokeStyle = 'rgba(220,230,240,0.3)'; ctx.setLineDash([4,4]); ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(sepX,0); ctx.lineTo(sepX,H); ctx.stroke(); ctx.setLineDash([]);
 }
 
 function renderPreset(){
@@ -504,10 +482,12 @@ function renderPreset(){
     html += `<button data-load="${i}"><span>${p}</span><span class="tag">SLOT ${i+1}</span></button>`;
   });
   html += `</div></div>
-  <div class="panel"><h3>Save Current Setting</h3><div class="save-row">
-    <button class="btn" data-save="0">SLOT 1</button><button class="btn" data-save="1">SLOT 2</button>
-    <button class="btn primary" data-save="2">SLOT 3</button></div>
-    <p class="hint">Menyimpan seluruh konfigurasi (routing, gain, x-over, PEQ, delay, limiter) saat ini ke slot terpilih.</p></div>`;
+  <div class="panel"><h3>Save Current Setting</h3><div class="save-row">`;
+  state.presets.forEach((p,i)=>{
+    html += `<button class="btn${i===0?' primary':''}" data-save="${i}">SLOT ${i+1}</button>`;
+  });
+  html += `</div>
+    <p class="hint">Menyimpan seluruh konfigurasi (routing, gain, x-over, PEQ, delay, compressor/limiter) saat ini ke slot terpilih.</p></div>`;
   main.innerHTML = html;
   main.querySelectorAll('[data-load]').forEach(b=>{
     b.addEventListener('click', ()=>{ sendCmd(CMD.LOAD_PRESET,[+b.dataset.load]); toast('Memuat '+state.presets[+b.dataset.load]); });
