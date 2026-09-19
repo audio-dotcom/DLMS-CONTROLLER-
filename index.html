@@ -10,9 +10,10 @@
 <link rel="apple-touch-icon" href="./icon-192.png">
 <style>
   :root{
-    --bg:#0a0e17;
-    --panel:#0f1523;
-    --panel2:#131b2c;
+    --bg:#080b12;
+    --panel:#0e131f;
+    --panel2:#131a29;
+    --card:#111827;
     --line:#1e2c42;
     --cyan:#3ec9e8;
     --cyan-dim:#1c5a6e;
@@ -29,17 +30,41 @@
     overscroll-behavior:none; user-select:none;}
   #app{max-width:520px; margin:0 auto; min-height:100vh; display:flex; flex-direction:column;}
 
-  header{padding:14px 16px 10px; border-bottom:1px solid var(--line); background:linear-gradient(180deg,#0d1220,#0a0e17);}
-  .brandrow{display:flex; align-items:center; justify-content:space-between;}
+  /* ---------- TOP BAR ---------- */
+  header{padding:12px 14px 10px; border-bottom:1px solid var(--line); background:linear-gradient(180deg,#0d1220,#080b12);}
+  .brandrow{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
   .brand{display:flex; flex-direction:column; line-height:1.1;}
-  .brand b{font-size:15px; letter-spacing:.14em; color:var(--cyan); font-weight:700;}
-  .brand span{font-size:10px; letter-spacing:.18em; color:var(--mint); margin-top:2px;}
-  .connbtn{display:flex; align-items:center; gap:7px; background:var(--panel2); border:1px solid var(--line);
-    padding:8px 14px; border-radius:20px; font-size:11px; font-weight:600; letter-spacing:.05em; color:var(--textdim);}
+  .brand b{font-size:14px; letter-spacing:.14em; color:var(--cyan); font-weight:700;}
+  .brand span{font-size:9px; letter-spacing:.16em; color:var(--textdim); margin-top:2px;}
+  .connbtn{display:flex; align-items:center; gap:6px; background:var(--panel2); border:1px solid var(--line);
+    padding:7px 12px; border-radius:20px; font-size:10px; font-weight:600; letter-spacing:.05em; color:var(--textdim);}
   .connbtn.on{color:var(--mint); border-color:#1c5a3e;}
-  .dot{width:7px; height:7px; border-radius:50%; background:var(--textdim);}
+  .dot{width:6px; height:6px; border-radius:50%; background:var(--textdim);}
   .connbtn.on .dot{background:var(--mint); box-shadow:0 0 6px var(--mint);}
 
+  .presetbar{display:flex; align-items:center; gap:8px;}
+  .presetbar select{flex:1; background:var(--panel2); border:1px solid var(--line); color:var(--cyan);
+    font-family:var(--mono); font-size:11px; font-weight:700; padding:8px 10px; border-radius:8px; text-transform:uppercase;}
+  .presetbar button{background:var(--panel2); border:1px solid var(--line); color:var(--textdim); font-size:10px;
+    font-weight:700; font-family:var(--mono); padding:8px 12px; border-radius:8px;}
+  .presetbar button.go{color:#08121a; background:var(--cyan); border-color:var(--cyan);}
+
+  /* ---------- OVERVIEW: INPUT/OUTPUT CARDS (selalu keliatan) ---------- */
+  .overview{padding:12px 14px 4px;}
+  .ovlabel{font-size:10px; letter-spacing:.14em; color:var(--textdim); font-weight:700; margin:2px 0 6px;}
+  .cardgrid{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px;}
+  .iocard{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:10px 11px; position:relative;}
+  .iocard.selected{border-color:var(--cyan-dim); box-shadow:0 0 0 1px var(--cyan-dim) inset;}
+  .iocard .nm{font-size:11px; font-weight:700; color:var(--text); margin-bottom:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .iocard .badges{display:flex; gap:4px; margin-bottom:7px;}
+  .badge{font-size:8px; font-weight:700; padding:3px 6px; border-radius:5px; background:#1a2233; color:var(--textdim); letter-spacing:.04em;}
+  .badge.lim-on{background:#3a2a10; color:var(--amber);}
+  .badge.mute-on{background:#3a1420; color:var(--red);}
+  .iocard .gainval{font-size:13px; font-weight:700; color:var(--cyan); margin-bottom:6px;}
+  .miniBarWrap{height:4px; background:#060a12; border-radius:2px; overflow:hidden;}
+  .miniBar{height:100%; width:4%; border-radius:2px; background:linear-gradient(90deg, var(--mint), var(--amber) 75%, var(--red) 94%); transition:width .12s linear;}
+
+  /* ---------- TABS ---------- */
   nav{display:flex; overflow-x:auto; gap:2px; padding:8px 10px; background:var(--bg);
     border-bottom:1px solid var(--line); -ms-overflow-style:none; scrollbar-width:none;}
   nav::-webkit-scrollbar{display:none;}
@@ -47,7 +72,7 @@
     font-weight:700; letter-spacing:.08em; padding:9px 13px; border-radius:8px; white-space:nowrap;}
   nav button.active{color:var(--bg); background:var(--cyan);}
 
-  main{flex:1; padding:16px 14px 90px;}
+  main{flex:1; padding:14px 14px 90px;}
   .panel{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:14px; margin-bottom:14px;}
   .panel h3{margin:0 0 12px; font-size:11px; letter-spacing:.14em; color:var(--mint); font-weight:700; text-transform:uppercase;}
 
@@ -59,7 +84,6 @@
   .row{display:flex; align-items:center; justify-content:space-between; padding:11px 2px; border-bottom:1px solid var(--line);}
   .row:last-child{border-bottom:none;}
   .row .lbl{font-size:12px; color:var(--text); font-weight:500;}
-  .row .sub{font-size:10px; color:var(--textdim); margin-top:1px;}
   .val{font-family:var(--mono); font-size:14px; color:var(--amber); font-weight:600; min-width:56px; text-align:right;}
 
   .sliderow{padding:10px 2px 14px;}
@@ -68,16 +92,24 @@
   input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:20px; height:20px; border-radius:50%;
     background:var(--cyan); border:3px solid #0a0e17; box-shadow:0 0 8px var(--cyan-dim);}
 
-  .meterrow{display:flex; align-items:center; gap:8px; margin-top:6px;}
-  .meterrow .mlabel{font-size:9px; color:var(--mint); width:20px; font-weight:700;}
-  .meterrow.gr .mlabel{color:var(--red);}
-  .meterbar{flex:1; height:6px; background:#060a12; border-radius:3px; overflow:hidden;}
-  .meterbar i{display:block; height:100%; width:22%; border-radius:3px;
-    background:linear-gradient(90deg, var(--mint), var(--amber) 70%, var(--red) 92%);}
-  .meterbar.gr i{background:var(--red); width:8%;}
+  /* ---------- FADER VERTIKAL (gaya channel strip mixer: Gain/HPF/LPF) ---------- */
+  .faderstrip{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; padding:6px 0 4px;}
+  .fadercol{display:flex; flex-direction:column; align-items:center;}
+  .fadercol .flabel{font-size:9px; letter-spacing:.1em; color:var(--mint); font-weight:700; margin-bottom:6px;}
+  .fadercol .fval{font-size:12px; color:var(--amber); font-weight:700; margin-top:8px;}
+  .fadertrack{position:relative; width:36px; height:170px; background:#060a12; border:1px solid var(--line);
+    border-radius:8px; display:flex; justify-content:center;}
+  .fadertrack::before{content:''; position:absolute; top:8px; bottom:8px; width:2px; background:var(--line);}
+  input.vslider{-webkit-appearance:none; appearance:none; writing-mode:vertical-lr; direction:rtl;
+    width:28px; height:158px; background:transparent; outline:none; margin:0; z-index:1;}
+  input.vslider::-webkit-slider-runnable-track{width:4px; background:transparent;}
+  input.vslider::-webkit-slider-thumb{-webkit-appearance:none; width:30px; height:16px; border-radius:4px;
+    background:var(--cyan); border:2px solid #0a0e17; box-shadow:0 0 8px var(--cyan-dim); cursor:pointer;}
+  input.vslider::-moz-range-thumb{width:30px; height:16px; border-radius:4px; background:var(--cyan);
+    border:2px solid #0a0e17; box-shadow:0 0 8px var(--cyan-dim); cursor:pointer;}
+  input.vslider::-moz-range-track{width:4px; background:var(--line);}
 
   .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
-  .grid2{display:grid; grid-template-columns:repeat(2,1fr); gap:8px;}
   .toggle{padding:12px 6px; border-radius:9px; background:var(--panel2); border:1px solid var(--line);
     text-align:center; font-size:12px; font-weight:700; color:var(--textdim); font-family:var(--mono);}
   .toggle.mute-on{background:#3a1420; border-color:#5c2338; color:var(--red);}
@@ -92,9 +124,20 @@
   .legend{display:flex; gap:12px; justify-content:flex-end; margin-bottom:6px; flex-wrap:wrap;}
   .legend span{font-size:9px; color:var(--textdim); display:flex; align-items:center; gap:4px;}
   .legend i{width:8px; height:8px; border-radius:2px; display:inline-block;}
-  canvas#rtaCanvas{width:100%; height:200px; display:block;}
+  canvas{width:100%; display:block;}
   .rtalabels{display:flex; gap:3px; margin-top:6px;}
   .rtalabels span{flex:1; text-align:center; font-size:9px; color:var(--textdim); font-family:var(--mono); font-weight:700;}
+
+  /* ---------- COMPRESSOR PAGE ---------- */
+  .complayout{display:flex; gap:10px;}
+  .compgraph{flex:1; min-width:0;}
+  .grmeter{width:46px; display:flex; flex-direction:column; align-items:center; gap:4px;}
+  .grmeter .glabel{font-size:8px; color:var(--textdim); font-weight:700;}
+  .grbarwrap{width:16px; height:150px; background:#060a12; border-radius:6px; overflow:hidden; display:flex; align-items:flex-end; border:1px solid var(--line);}
+  .grbarfill{width:100%; background:linear-gradient(0deg, var(--mint), var(--amber) 60%, var(--red) 90%); height:6%; transition:height .12s linear;}
+  .grval{font-size:10px; color:var(--red); font-weight:700;}
+  .compactive{display:inline-block; font-size:9px; font-weight:700; padding:4px 10px; border-radius:20px; background:#0e2c22; color:var(--mint); float:right;}
+  .compactive.off{background:#1a2233; color:var(--textdim);}
 
   .jumprow{display:flex; gap:6px; overflow-x:auto; margin-top:12px; -ms-overflow-style:none; scrollbar-width:none;}
   .jumprow::-webkit-scrollbar{display:none;}
@@ -117,7 +160,6 @@
   #toast.show{transform:translateX(-50%) translateY(0);}
 
   .hint{font-size:10px; color:var(--textdim); line-height:1.6; padding:4px 2px 0; text-transform:none; letter-spacing:0;}
-  .empty{padding:40px 10px; text-align:center; color:var(--textdim); font-size:13px;}
 </style>
 </head>
 <body>
@@ -128,11 +170,26 @@
       <div class="brand"><b>YSN AUDIO</b><span>DLMS MINI 240</span></div>
       <button class="connbtn" id="connBtn"><span class="dot"></span><span id="connLabel">CONNECT</span></button>
     </div>
+    <div class="presetbar">
+      <select id="presetQuickSel"></select>
+      <button id="quickLoadBtn">LOAD</button>
+      <button class="go" id="quickSaveBtn">SAVE</button>
+    </div>
   </header>
+
+  <div class="overview">
+    <div class="ovlabel">INPUTS</div>
+    <div class="cardgrid" id="inCards"></div>
+    <div class="ovlabel">OUTPUTS</div>
+    <div class="cardgrid" id="outCards"></div>
+  </div>
 
   <nav id="tabs">
     <button data-tab="matrix" class="active">MATRIX</button>
-    <button data-tab="strip">CHANNEL STRIP</button>
+    <button data-tab="xover">CROSSOVER</button>
+    <button data-tab="eq">EQ 9-BAND</button>
+    <button data-tab="delay">DELAY</button>
+    <button data-tab="comp">COMPRESSOR</button>
     <button data-tab="rta">LEVEL METER</button>
     <button data-tab="preset">PRESET</button>
   </nav>
@@ -144,14 +201,12 @@
 
 <script>
 /* ============================================================
-   DLMS MINI 240 — BLE CONTROL PROTOCOL
-   Service + 3 Characteristics: CONTROL(write), STATUS(notify), RTA(notify)
-   Paket CONTROL: byte0 = cmd_id, sisanya payload (little-endian utk int16)
+   DLMS MINI 240 — BLE CONTROL PROTOCOL (SAMA PERSIS, GAK BERUBAH)
    ============================================================ */
 const SERVICE_UUID   = '4fafc201-1fb5-459e-8fcc-c5c9c331914b';
-const CHAR_CONTROL    = 'beb5483e-36e1-4688-b7f5-ea07361b26a8'; // write
-const CHAR_STATUS     = 'beb5483e-36e1-4688-b7f5-ea07361b26a9'; // notify (full state dump)
-const CHAR_RTA        = 'beb5483e-36e1-4688-b7f5-ea07361b26aa'; // notify (6-channel level meter)
+const CHAR_CONTROL    = 'beb5483e-36e1-4688-b7f5-ea07361b26a8';
+const CHAR_STATUS     = 'beb5483e-36e1-4688-b7f5-ea07361b26a9';
+const CHAR_RTA        = 'beb5483e-36e1-4688-b7f5-ea07361b26aa';
 
 const CMD = {
   SET_ROUTE:0x01, SET_GAIN:0x02, SET_MUTE:0x03, SET_XOVER_HPF:0x04, SET_XOVER_LPF:0x05,
@@ -165,6 +220,10 @@ let activeBand = 0;
 
 const FREQ_ISO = [20,22,25,28,32,40,50,63,80,100,125,160,200,250,315,400,500,630,800,1000,1250,1600,2000,2500,3150,4000,5000,6300,8000,10000,12500,16000,20000];
 const METER_LABELS = ['IN-L','IN-R','OUT1','OUT2','OUT3','OUT4'];
+// Nama channel/preset di bawah ini PLACEHOLDER doang (belum tersambung ke firmware,
+// belum bisa diketik/disimpan -> kalau nanti mau beneran custom & persist, firmware perlu ditambah NVS string storage)
+const OUT_NAMES = ['OUT 1', 'OUT 2', 'OUT 3', 'OUT 4'];
+const PRESET_NAMES = ['PRESET 1','PRESET 2','PRESET 3','PRESET 4','PRESET 5'];
 
 const state = {
   route:[0,1,2,2], gain:[0,0,0,0], mute:[false,false,false,false,false,false],
@@ -174,7 +233,7 @@ const state = {
   peqQ:[[10,10,10,10,10,10,10,10,10],[10,10,10,10,10,10,10,10,10],[10,10,10,10,10,10,10,10,10],[10,10,10,10,10,10,10,10,10]],
   delay:[0,0,0,0],
   limThresh:[0,0,0,0], limRatio:[4,4,4,4], limAttack:[10,10,10,10], limRelease:[100,100,100,100],
-  presets:['PRESET 1','PRESET 2','PRESET 3','PRESET 4','PRESET 5']
+  presets:PRESET_NAMES
 };
 
 /* ---------------- BLE CONNECTION ---------------- */
@@ -215,7 +274,7 @@ function updateConnUI(){
   const btn=document.getElementById('connBtn');
   const lbl=document.getElementById('connLabel');
   btn.classList.toggle('on', connected);
-  lbl.textContent = connected ? 'CONNECTED' : 'CONNECT';
+  lbl.textContent = connected ? 'SYNCED' : 'CONNECT';
 }
 
 async function sendCmd(cmd, payloadArr){
@@ -227,17 +286,15 @@ async function sendCmd(cmd, payloadArr){
 function i16le(v){ const b=new ArrayBuffer(2); new DataView(b).setInt16(0,v,true); return Array.from(new Uint8Array(b)); }
 function u16le(v){ const b=new ArrayBuffer(2); new DataView(b).setUint16(0,v,true); return Array.from(new Uint8Array(b)); }
 
-function onStatusNotify(e){
-  // Format status dump firmware: route[4] u8, gain[4] i16, hpf[4] u16, lpf[4] u16, muteMask u8
-  // (belum dipakai penuh di sini -> tampilan masih dari state lokal; parsing lengkap bisa ditambah belakangan)
-  render();
-}
+function onStatusNotify(e){ render(); renderOverviewCards(); }
 
 let meterVals = new Array(6).fill(0); // IN-L, IN-R, OUT1-4, skala 0-255
 function onRtaNotify(e){
   const dv = e.target.value;
   for(let i=0;i<dv.byteLength && i<6;i++) meterVals[i] = dv.getUint8(i);
+  updateMiniBars();
   if(currentTab==='rta') drawMeterBars();
+  if(currentTab==='comp') updateGrMeter();
 }
 
 /* ---------------- TOAST ---------------- */
@@ -247,6 +304,48 @@ function toast(msg){
   t.textContent=msg; t.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer=setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+/* ---------------- OVERVIEW CARDS (selalu tampil, di atas tab) ---------------- */
+function renderOverviewCards(){
+  const inWrap = document.getElementById('inCards');
+  inWrap.innerHTML = `
+    <div class="iocard"><div class="nm">INPUT A (L)</div>
+      <div class="badges"><span class="badge">A2DP/LINE</span></div>
+      <div class="miniBarWrap"><div class="miniBar" id="mb0"></div></div>
+    </div>
+    <div class="iocard"><div class="nm">INPUT B (R)</div>
+      <div class="badges"><span class="badge">A2DP/LINE</span></div>
+      <div class="miniBarWrap"><div class="miniBar" id="mb1"></div></div>
+    </div>`;
+
+  const outWrap = document.getElementById('outCards');
+  let html = '';
+  for(let ch=0; ch<4; ch++){
+    const isSel = (ch===activeCh);
+    const isMuted = state.mute[ch+2];
+    const limActive = state.limRatio[ch] > 1.5;
+    html += `<div class="iocard ${isSel?'selected':''}" data-selch="${ch}">
+      <div class="nm">${OUT_NAMES[ch]}</div>
+      <div class="badges">
+        <span class="badge ${limActive?'lim-on':''}">LIM</span>
+        <span class="badge ${isMuted?'mute-on':''}">M</span>
+      </div>
+      <div class="gainval">${state.gain[ch]>0?'+':''}${state.gain[ch]}dB</div>
+      <div class="miniBarWrap"><div class="miniBar" id="mb${ch+2}"></div></div>
+    </div>`;
+  }
+  outWrap.innerHTML = html;
+  outWrap.querySelectorAll('[data-selch]').forEach(el=>{
+    el.addEventListener('click', ()=>{ activeCh = +el.dataset.selch; renderOverviewCards(); render(); });
+  });
+  updateMiniBars();
+}
+function updateMiniBars(){
+  for(let i=0;i<6;i++){
+    const el = document.getElementById('mb'+i);
+    if(el) el.style.width = Math.max(3, (meterVals[i]/255)*100) + '%';
+  }
 }
 
 /* ---------------- TABS ---------------- */
@@ -260,25 +359,41 @@ document.getElementById('tabs').addEventListener('click', (e)=>{
 });
 document.getElementById('connBtn').addEventListener('click', connectBLE);
 
+function fillPresetQuickSel(){
+  const sel = document.getElementById('presetQuickSel');
+  sel.innerHTML = state.presets.map((p,i)=>`<option value="${i}">${p}</option>`).join('');
+}
+document.getElementById('quickLoadBtn').addEventListener('click', ()=>{
+  const slot = +document.getElementById('presetQuickSel').value;
+  sendCmd(CMD.LOAD_PRESET,[slot]); toast('Memuat '+state.presets[slot]);
+});
+document.getElementById('quickSaveBtn').addEventListener('click', ()=>{
+  const slot = +document.getElementById('presetQuickSel').value;
+  sendCmd(CMD.SAVE_PRESET,[slot]); toast('Tersimpan ke '+state.presets[slot]);
+});
+
 /* ---------------- RENDER ---------------- */
 const main = document.getElementById('main');
 function chSelector(count){
   let html = '<div class="chsel">';
   for(let i=0;i<count;i++){
-    html += `<button data-ch="${i}" class="${activeCh===i?'active':''}">CH ${i+1}</button>`;
+    html += `<button data-ch="${i}" class="${activeCh===i?'active':''}">${OUT_NAMES[i]}</button>`;
   }
   html += '</div>';
   return html;
 }
 function bindChSelector(){
   main.querySelectorAll('.chsel button').forEach(b=>{
-    b.addEventListener('click', ()=>{ activeCh=+b.dataset.ch; render(); });
+    b.addEventListener('click', ()=>{ activeCh=+b.dataset.ch; render(); renderOverviewCards(); });
   });
 }
 
 function render(){
   if(currentTab==='matrix') renderMatrix();
-  else if(currentTab==='strip') renderStrip();
+  else if(currentTab==='xover') renderXover();
+  else if(currentTab==='eq') renderEq();
+  else if(currentTab==='delay') renderDelay();
+  else if(currentTab==='comp') renderComp();
   else if(currentTab==='rta') renderRta();
   else if(currentTab==='preset') renderPreset();
 }
@@ -300,67 +415,157 @@ function renderMatrix(){
   });
 }
 
-function renderStrip(){
-  const hpf=state.xoverHpf[activeCh], lpf=state.xoverLpf[activeCh];
+function renderXover(){
+  const hpf=state.xoverHpf[activeCh], lpf=state.xoverLpf[activeCh], gain=state.gain[activeCh];
+  main.innerHTML = `
+    <div class="panel">${chSelector(4)}
+      <div class="toggle ${state.mute[activeCh+2]?'mute-on':''}" id="stripMuteBtn" style="text-align:center;">
+        ${state.mute[activeCh+2] ? 'MUTED' : 'MUTE '+OUT_NAMES[activeCh]}
+      </div>
+    </div>
+    <div class="panel"><h3>Channel Strip — ${OUT_NAMES[activeCh]}</h3>
+      <div class="faderstrip">
+        <div class="fadercol">
+          <div class="flabel">GAIN</div>
+          <div class="fadertrack"><input type="range" class="vslider" orient="vertical" min="-24" max="24" step="1" value="${gain}" id="gainSlider"></div>
+          <div class="fval" id="gainVal">${gain>0?'+':''}${gain}dB</div>
+        </div>
+        <div class="fadercol">
+          <div class="flabel">HPF</div>
+          <div class="fadertrack"><input type="range" class="vslider" orient="vertical" min="20" max="2000" step="1" value="${hpf}" id="hpfSlider"></div>
+          <div class="fval" id="hpfVal">${hpf}Hz</div>
+        </div>
+        <div class="fadercol">
+          <div class="flabel">LPF</div>
+          <div class="fadertrack"><input type="range" class="vslider" orient="vertical" min="200" max="20000" step="10" value="${lpf}" id="lpfSlider"></div>
+          <div class="fval" id="lpfVal">${lpf}Hz</div>
+        </div>
+      </div>
+      <p class="hint">Linkwitz-Riley 24dB/oktaf. HPF motong frekuensi rendah, LPF motong frekuensi tinggi. Geser fader ke atas = naikkan nilai.</p>
+    </div>`;
+  bindChSelector();
+  document.getElementById('stripMuteBtn').addEventListener('click', ()=>{
+    const idx = activeCh+2;
+    state.mute[idx] = !state.mute[idx];
+    let mask=0; state.mute.forEach((m,i)=>{ if(m) mask |= (1<<i); });
+    sendCmd(CMD.SET_MUTE, [mask]); render(); renderOverviewCards();
+  });
+  const gs=document.getElementById('gainSlider');
+  gs.addEventListener('input', ()=> document.getElementById('gainVal').textContent = (gs.value>0?'+':'')+gs.value+'dB');
+  gs.addEventListener('change', ()=>{ state.gain[activeCh]=+gs.value; sendCmd(CMD.SET_GAIN,[activeCh,...i16le(+gs.value)]); renderOverviewCards(); });
+  const hs=document.getElementById('hpfSlider');
+  hs.addEventListener('input', ()=> document.getElementById('hpfVal').textContent = hs.value+'Hz');
+  hs.addEventListener('change', ()=>{ state.xoverHpf[activeCh]=+hs.value; sendCmd(CMD.SET_XOVER_HPF,[activeCh,...i16le(+hs.value)]); });
+  const ls=document.getElementById('lpfSlider');
+  ls.addEventListener('input', ()=> document.getElementById('lpfVal').textContent = ls.value+'Hz');
+  ls.addEventListener('change', ()=>{ state.xoverLpf[activeCh]=+ls.value; sendCmd(CMD.SET_XOVER_LPF,[activeCh,...i16le(+ls.value)]); });
+}
+
+function renderEq(){
   const fIdx = state.peqFreqIdx[activeCh][activeBand];
   const peqGain = state.peqGain[activeCh][activeBand]/10;
   const q = state.peqQ[activeCh][activeBand]/10;
-  const d = state.delay[activeCh];
-  const th=state.limThresh[activeCh], ra=state.limRatio[activeCh], at=state.limAttack[activeCh], rl=state.limRelease[activeCh];
-
   let bands='<div class="bandrow">';
   for(let b=0;b<9;b++) bands += `<button data-band="${b}" class="${activeBand===b?'active':''}">${b+1}</button>`;
   bands += '</div>';
-
-  let html = `
-    <div class="panel">${chSelector(4)}
-      <div class="jumprow">
-        <button data-jump="secGain">GAIN</button>
-        <button data-jump="secHpf">HPF</button>
-        <button data-jump="secLpf">LPF</button>
-        <button data-jump="secPeq">PEQ</button>
-        <button data-jump="secDelay">DELAY</button>
-        <button data-jump="secLim">LIMITER</button>
-      </div>
-      <div class="toggle ${state.mute[activeCh+2]?'mute-on':''}" id="stripMuteBtn" style="text-align:center; margin-top:4px;">
-        ${state.mute[activeCh+2] ? 'MUTED' : 'MUTE CH '+(activeCh+1)}
-      </div>
-    </div>
-
-    <div class="panel" id="secGain"><h3>Gain — Channel ${activeCh+1}</h3>
-      <div class="sliderow"><div class="top"><span class="lbl">Gain</span>
-      <span class="val" id="gainVal">${state.gain[activeCh]>0?'+':''}${state.gain[activeCh]} dB</span></div>
-      <input type="range" min="-24" max="24" step="1" value="${state.gain[activeCh]}" id="gainSlider"></div>
-    </div>
-
-    <div class="panel" id="secHpf"><h3>High Pass Filter (HPF 24dB)</h3>
-      <div class="sliderow"><div class="top"><span class="lbl">Frequency</span><span class="val" id="hpfVal">${hpf} Hz</span></div>
-      <input type="range" min="20" max="2000" step="1" value="${hpf}" id="hpfSlider"></div>
-    </div>
-
-    <div class="panel" id="secLpf"><h3>Low Pass Filter (LPF 24dB)</h3>
-      <div class="sliderow"><div class="top"><span class="lbl">Frequency</span><span class="val" id="lpfVal">${lpf} Hz</span></div>
-      <input type="range" min="200" max="20000" step="10" value="${lpf}" id="lpfSlider"></div>
-      <p class="hint">Linkwitz-Riley 24dB/oktaf. HPF memotong frekuensi rendah, LPF memotong frekuensi tinggi.</p>
-    </div>
-
-    <div class="panel" id="secPeq"><h3>PEQ Boost/Cut (Freq / Gain)</h3>${bands}
+  main.innerHTML = `<div class="panel">${chSelector(4)}</div>
+    <div class="panel"><h3>Parametric EQ — 9 Band</h3>
+      <div class="graphwrap"><canvas id="eqCanvas" width="600" height="220"></canvas></div>
+      ${bands}
       <div class="sliderow"><div class="top"><span class="lbl">Frequency</span><span class="val" id="peqFreqVal">${FREQ_ISO[fIdx]} Hz</span></div>
       <input type="range" min="0" max="32" step="1" value="${fIdx}" id="peqFreqSlider"></div>
       <div class="sliderow"><div class="top"><span class="lbl">Gain</span><span class="val" id="peqGainVal">${peqGain>0?'+':''}${peqGain.toFixed(1)} dB</span></div>
       <input type="range" min="-12" max="12" step="0.1" value="${peqGain}" id="peqGainSlider"></div>
       <div class="sliderow"><div class="top"><span class="lbl">Q Factor</span><span class="val" id="peqQVal">${q.toFixed(1)}</span></div>
       <input type="range" min="0.3" max="10" step="0.1" value="${q}" id="peqQSlider"></div>
-    </div>
+    </div>`;
+  bindChSelector();
+  drawEqBars();
+  main.querySelectorAll('[data-band]').forEach(b=>{
+    b.addEventListener('click', ()=>{ activeBand=+b.dataset.band; render(); });
+  });
+  const fs=document.getElementById('peqFreqSlider'), pgs=document.getElementById('peqGainSlider'), qs=document.getElementById('peqQSlider');
+  fs.addEventListener('input', ()=> document.getElementById('peqFreqVal').textContent = FREQ_ISO[+fs.value]+' Hz');
+  pgs.addEventListener('input', ()=>{
+    const v=+pgs.value; document.getElementById('peqGainVal').textContent=(v>0?'+':'')+v.toFixed(1)+' dB';
+    drawEqBars(v); // live preview: bar band aktif ikut gerak sebelum di-commit ke firmware
+  });
+  qs.addEventListener('input', ()=> document.getElementById('peqQVal').textContent = (+qs.value).toFixed(1));
+  function sendPeq(){
+    const freqIdx=+fs.value, gainX10=Math.round(+pgs.value*10), qX10=Math.round(+qs.value*10);
+    state.peqFreqIdx[activeCh][activeBand]=freqIdx; state.peqGain[activeCh][activeBand]=gainX10; state.peqQ[activeCh][activeBand]=qX10;
+    sendCmd(CMD.SET_PEQ, [activeCh, activeBand, freqIdx, ...i16le(gainX10), ...u16le(qX10)]);
+    drawEqBars();
+  }
+  fs.addEventListener('change', sendPeq); pgs.addEventListener('change', sendPeq); qs.addEventListener('change', sendPeq);
+}
+function drawEqBars(liveGainOverride){
+  const cv=document.getElementById('eqCanvas'); if(!cv) return;
+  const ctx=cv.getContext('2d'); const W=cv.width, H=cv.height;
+  const padTop=14, padBot=22, gap=6;
+  const n=9, barW=(W-gap*(n+1))/n;
+  const midY = padTop + (H-padTop-padBot)/2;
+  ctx.clearRect(0,0,W,H);
 
-    <div class="panel" id="secDelay"><h3>Time Alignment Delay</h3>
+  // grid: garis 0dB tengah + guide +12/-12
+  ctx.strokeStyle='rgba(60,90,120,0.3)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(0,padTop); ctx.lineTo(W,padTop); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0,H-padBot); ctx.lineTo(W,H-padBot); ctx.stroke();
+  ctx.strokeStyle='rgba(220,230,240,0.35)';
+  ctx.beginPath(); ctx.moveTo(0,midY); ctx.lineTo(W,midY); ctx.stroke();
+
+  for(let b=0;b<9;b++){
+    const gainDb = (b===activeBand && liveGainOverride!==undefined) ? liveGainOverride : state.peqGain[activeCh][b]/10;
+    const half = (H-padTop-padBot)/2;
+    const barH = Math.min(half, Math.abs(gainDb)/12*half);
+    const x = gap + b*(barW+gap);
+    const y = gainDb >= 0 ? midY - barH : midY;
+    const isActive = (b===activeBand);
+    ctx.fillStyle = isActive ? '#3ec9e8' : 'rgba(62,232,154,0.55)';
+    ctx.fillRect(x, y, barW, Math.max(1,barH));
+    // label frekuensi tiap band di bawah grafik
+    const fLbl = FREQ_ISO[state.peqFreqIdx[activeCh][b]];
+    const txt = fLbl>=1000 ? (fLbl/1000)+'k' : ''+fLbl;
+    ctx.fillStyle = isActive ? '#3ec9e8' : '#5c7690';
+    ctx.font = '9px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(txt, x+barW/2, H-6);
+  }
+}
+
+function renderDelay(){
+  const d = state.delay[activeCh];
+  main.innerHTML = `<div class="panel">${chSelector(4)}</div>
+    <div class="panel"><h3>Time Alignment Delay</h3>
       <div class="sliderow"><div class="top"><span class="lbl">Delay</span>
       <span class="val" id="delayVal">${d.toFixed(1)} ms</span></div>
       <input type="range" min="0" max="300" step="0.1" value="${d}" id="delaySlider"></div>
-    </div>
+    </div>`;
+  bindChSelector();
+  const ds=document.getElementById('delaySlider');
+  ds.addEventListener('input', ()=> document.getElementById('delayVal').textContent = (+ds.value).toFixed(1)+' ms');
+  ds.addEventListener('change', ()=>{
+    state.delay[activeCh]=+ds.value;
+    sendCmd(CMD.SET_DELAY, [activeCh, ...i16le(Math.round(+ds.value*10))]);
+  });
+}
 
-    <div class="panel" id="secLim"><h3>Compressor / Limiter</h3>
-      <div class="sliderow"><div class="top"><span class="lbl">Threshold</span><span class="val" id="thVal">${th} dB</span></div>
+/* ---------------- COMPRESSOR (knee curve + GR meter) ---------------- */
+function renderComp(){
+  const th=state.limThresh[activeCh], ra=state.limRatio[activeCh], at=state.limAttack[activeCh], rl=state.limRelease[activeCh];
+  const active = ra > 1.5;
+  main.innerHTML = `<div class="panel">${chSelector(4)}</div>
+    <div class="panel">
+      <h3>Limiter / Compressor <span class="compactive ${active?'':'off'}">${active?'ACTIVE':'BYPASS'}</span></h3>
+      <div class="complayout">
+        <div class="compgraph"><canvas id="compCanvas" width="380" height="220"></canvas></div>
+        <div class="grmeter">
+          <span class="glabel">GR</span>
+          <div class="grbarwrap"><div class="grbarfill" id="grBarFill"></div></div>
+          <span class="grval" id="grValTxt">0.0</span>
+        </div>
+      </div>
+      <div class="sliderow"><div class="top"><span class="lbl">Threshold</span><span class="val" id="thVal">${th} dBFS</span></div>
       <input type="range" min="-30" max="0" step="0.5" value="${th}" id="thSlider"></div>
       <div class="sliderow"><div class="top"><span class="lbl">Ratio</span><span class="val" id="raVal">${ra>=50?'LIM':ra.toFixed(1)+':1'}</span></div>
       <input type="range" min="1" max="100" step="0.5" value="${ra}" id="raSlider"></div>
@@ -368,76 +573,72 @@ function renderStrip(){
       <input type="range" min="1" max="100" step="1" value="${at}" id="atSlider"></div>
       <div class="sliderow"><div class="top"><span class="lbl">Release</span><span class="val" id="rlVal">${rl} ms</span></div>
       <input type="range" min="10" max="5000" step="10" value="${rl}" id="rlSlider"></div>
-      <p class="hint">Ratio 1:1 = transparan (gak ada kompresi). Ratio tinggi (mendekati LIM) = brickwall limiter.</p>
-    </div>
-  `;
-  main.innerHTML = html;
+      <p class="hint">Ratio 1:1 = transparan. Ratio tinggi (mendekati LIM) = brickwall limiter.</p>
+    </div>`;
   bindChSelector();
-
-  main.querySelectorAll('[data-jump]').forEach(b=>{
-    b.addEventListener('click', ()=>{
-      document.getElementById(b.dataset.jump).scrollIntoView({behavior:'smooth', block:'start'});
-    });
-  });
-
-  document.getElementById('stripMuteBtn').addEventListener('click', ()=>{
-    const idx = activeCh+2;
-    state.mute[idx] = !state.mute[idx];
-    let mask=0; state.mute.forEach((m,i)=>{ if(m) mask |= (1<<i); });
-    sendCmd(CMD.SET_MUTE, [mask]); render();
-  });
-
-  const gs=document.getElementById('gainSlider');
-  gs.addEventListener('input', ()=> document.getElementById('gainVal').textContent = (gs.value>0?'+':'')+gs.value+' dB');
-  gs.addEventListener('change', ()=>{ state.gain[activeCh]=+gs.value; sendCmd(CMD.SET_GAIN,[activeCh,...i16le(+gs.value)]); });
-
-  const hs=document.getElementById('hpfSlider');
-  hs.addEventListener('input', ()=> document.getElementById('hpfVal').textContent = hs.value+' Hz');
-  hs.addEventListener('change', ()=>{ state.xoverHpf[activeCh]=+hs.value; sendCmd(CMD.SET_XOVER_HPF,[activeCh,...i16le(+hs.value)]); });
-
-  const ls=document.getElementById('lpfSlider');
-  ls.addEventListener('input', ()=> document.getElementById('lpfVal').textContent = ls.value+' Hz');
-  ls.addEventListener('change', ()=>{ state.xoverLpf[activeCh]=+ls.value; sendCmd(CMD.SET_XOVER_LPF,[activeCh,...i16le(+ls.value)]); });
-
-  main.querySelectorAll('[data-band]').forEach(b=>{
-    b.addEventListener('click', ()=>{ activeBand=+b.dataset.band; render(); setTimeout(()=>document.getElementById('secPeq').scrollIntoView({behavior:'auto',block:'start'}),0); });
-  });
-  const fs=document.getElementById('peqFreqSlider'), pgs=document.getElementById('peqGainSlider'), qs=document.getElementById('peqQSlider');
-  fs.addEventListener('input', ()=> document.getElementById('peqFreqVal').textContent = FREQ_ISO[+fs.value]+' Hz');
-  pgs.addEventListener('input', ()=>{ const v=+pgs.value; document.getElementById('peqGainVal').textContent=(v>0?'+':'')+v.toFixed(1)+' dB'; });
-  qs.addEventListener('input', ()=> document.getElementById('peqQVal').textContent = (+qs.value).toFixed(1));
-  function sendPeq(){
-    const freqIdx=+fs.value, gainX10=Math.round(+pgs.value*10), qX10=Math.round(+qs.value*10);
-    state.peqFreqIdx[activeCh][activeBand]=freqIdx; state.peqGain[activeCh][activeBand]=gainX10; state.peqQ[activeCh][activeBand]=qX10;
-    sendCmd(CMD.SET_PEQ, [activeCh, activeBand, freqIdx, ...i16le(gainX10), ...u16le(qX10)]);
-  }
-  fs.addEventListener('change', sendPeq); pgs.addEventListener('change', sendPeq); qs.addEventListener('change', sendPeq);
-
-  const ds=document.getElementById('delaySlider');
-  ds.addEventListener('input', ()=> document.getElementById('delayVal').textContent = (+ds.value).toFixed(1)+' ms');
-  ds.addEventListener('change', ()=>{
-    state.delay[activeCh]=+ds.value;
-    sendCmd(CMD.SET_DELAY, [activeCh, ...i16le(Math.round(+ds.value*10))]);
-  });
+  drawCompCurve();
+  updateGrMeter();
 
   const ths=document.getElementById('thSlider'), ras=document.getElementById('raSlider'), ats=document.getElementById('atSlider'), rls=document.getElementById('rlSlider');
-  ths.addEventListener('input', ()=> document.getElementById('thVal').textContent = (+ths.value).toFixed(1)+' dB');
-  ras.addEventListener('input', ()=>{ const v=+ras.value; document.getElementById('raVal').textContent = v>=50?'LIM':v.toFixed(1)+':1'; });
+  ths.addEventListener('input', ()=>{ document.getElementById('thVal').textContent = (+ths.value).toFixed(1)+' dBFS'; drawCompCurve(); });
+  ras.addEventListener('input', ()=>{ const v=+ras.value; document.getElementById('raVal').textContent = v>=50?'LIM':v.toFixed(1)+':1'; drawCompCurve(); });
   ats.addEventListener('input', ()=> document.getElementById('atVal').textContent = ats.value+' ms');
   rls.addEventListener('input', ()=> document.getElementById('rlVal').textContent = rls.value+' ms');
   function sendLim(){
     state.limThresh[activeCh]=+ths.value; state.limRatio[activeCh]=+ras.value;
     state.limAttack[activeCh]=+ats.value; state.limRelease[activeCh]=+rls.value;
     sendCmd(CMD.SET_LIMITER, [
-      activeCh,
-      ...i16le(Math.round(+ths.value*10)),
-      ...u16le(+ats.value),
-      ...u16le(+rls.value),
-      ...i16le(Math.round(+ras.value*10))
+      activeCh, ...i16le(Math.round(+ths.value*10)), ...u16le(+ats.value), ...u16le(+rls.value), ...i16le(Math.round(+ras.value*10))
     ]);
+    renderOverviewCards();
   }
   ths.addEventListener('change', sendLim); ras.addEventListener('change', sendLim);
   ats.addEventListener('change', sendLim); rls.addEventListener('change', sendLim);
+}
+function drawCompCurve(){
+  const cv=document.getElementById('compCanvas'); if(!cv) return;
+  const ctx=cv.getContext('2d'); const W=cv.width, H=cv.height, PAD=24;
+  ctx.clearRect(0,0,W,H);
+  ctx.strokeStyle='rgba(60,90,120,0.25)'; ctx.lineWidth=1;
+  for(let i=1;i<4;i++){ const y=PAD+(H-PAD*2)/4*i; ctx.beginPath(); ctx.moveTo(PAD,y); ctx.lineTo(W-PAD,y); ctx.stroke(); }
+
+  const thSl=document.getElementById('thSlider'), raSl=document.getElementById('raSlider');
+  const th = thSl ? +thSl.value : state.limThresh[activeCh];
+  const ra = raSl ? +raSl.value : state.limRatio[activeCh];
+  const dbToXY=(db)=>{ const t=(db+60)/60; return [PAD+t*(W-PAD*2), H-PAD-t*(H-PAD*2)]; };
+
+  // referensi 1:1 (dotted)
+  ctx.setLineDash([4,4]); ctx.strokeStyle='rgba(220,230,240,0.25)'; ctx.lineWidth=1;
+  ctx.beginPath(); let [x0,y0]=dbToXY(-60); ctx.moveTo(x0,y0); let [x1,y1]=dbToXY(0); ctx.lineTo(x1,y1); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // kurva knee: input<=threshold -> output=input ; input>threshold -> output=threshold+(input-threshold)/ratio
+  ctx.strokeStyle='#3ec9e8'; ctx.lineWidth=2.5; ctx.beginPath();
+  for(let px=0; px<=100; px++){
+    const inDb = -60 + (px/100)*60;
+    const outDb = inDb <= th ? inDb : th + (inDb - th)/ra;
+    const [x,y] = dbToXY(outDb);
+    const [xin] = dbToXY(inDb);
+    if(px===0) ctx.moveTo(xin,y); else ctx.lineTo(xin,y);
+  }
+  ctx.stroke();
+
+  // marker titik threshold
+  const [tx,ty] = dbToXY(th);
+  ctx.fillStyle='#ffc94a'; ctx.beginPath(); ctx.arc(tx,ty,4,0,Math.PI*2); ctx.fill();
+}
+function updateGrMeter(){
+  const fill=document.getElementById('grBarFill'), txt=document.getElementById('grValTxt');
+  if(!fill) return;
+  const outIdx = 2+activeCh; // meterVals: 0,1=IN-L/R ; 2..5=OUT1-4
+  const lvlByte = meterVals[outIdx] || 0;
+  const dB = (lvlByte/255)*60 - 60; // 0-255 -> -60..0 dBFS (sama skala kayak firmware)
+  const th=state.limThresh[activeCh], ra=state.limRatio[activeCh];
+  let gr = 0;
+  if(dB > th) gr = (dB - th) * (1 - 1/ra);
+  gr = Math.max(0, Math.min(24, gr));
+  fill.style.height = ((gr/24)*100).toFixed(0) + '%';
+  txt.textContent = '-' + gr.toFixed(1);
 }
 
 function renderRta(){
@@ -449,7 +650,7 @@ function renderRta(){
     </div>
     <div class="graphwrap"><canvas id="rtaCanvas" width="600" height="360"></canvas></div>
     <div class="rtalabels">${labels}</div>
-    <p class="hint">6 bar level real-time: 2 bar INPUT (sebelum DSP) dan 4 bar OUTPUT (setelah full signal chain: crossover, PEQ, delay, compressor/limiter, gain).</p></div>`;
+    <p class="hint">6 bar level real-time: 2 bar INPUT (sebelum DSP) dan 4 bar OUTPUT (setelah full signal chain).</p></div>`;
   drawMeterBars();
 }
 function drawMeterBars(){
@@ -457,10 +658,8 @@ function drawMeterBars(){
   const ctx = cv.getContext('2d');
   const W = cv.width, H = cv.height;
   ctx.clearRect(0,0,W,H);
-
   ctx.strokeStyle = 'rgba(60,90,120,0.25)'; ctx.lineWidth = 1;
   for(let i=1;i<4;i++){ const y=H/4*i; ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
-
   const n = 6, gap = 14, barW = (W - gap*(n+1)) / n;
   for(let i=0;i<n;i++){
     const x = gap + i*(barW+gap);
@@ -470,7 +669,6 @@ function drawMeterBars(){
     ctx.fillStyle = i<2 ? '#3ec9e8' : grad;
     ctx.fillRect(x, H-h, barW, h);
   }
-  // pemisah visual antara grup INPUT (2 bar) dan OUTPUT (4 bar)
   const sepX = gap + 2*(barW+gap) - gap/2;
   ctx.strokeStyle = 'rgba(220,230,240,0.3)'; ctx.setLineDash([4,4]); ctx.lineWidth=1;
   ctx.beginPath(); ctx.moveTo(sepX,0); ctx.lineTo(sepX,H); ctx.stroke(); ctx.setLineDash([]);
@@ -487,7 +685,7 @@ function renderPreset(){
     html += `<button class="btn${i===0?' primary':''}" data-save="${i}">SLOT ${i+1}</button>`;
   });
   html += `</div>
-    <p class="hint">Menyimpan seluruh konfigurasi (routing, gain, x-over, PEQ, delay, compressor/limiter) saat ini ke slot terpilih.</p></div>`;
+    <p class="hint">Nama preset di atas masih placeholder (belum bisa diketik/tersimpan) — menyimpan konfigurasi lengkap channel aktif tetap berfungsi penuh.</p></div>`;
   main.innerHTML = html;
   main.querySelectorAll('[data-load]').forEach(b=>{
     b.addEventListener('click', ()=>{ sendCmd(CMD.LOAD_PRESET,[+b.dataset.load]); toast('Memuat '+state.presets[+b.dataset.load]); });
@@ -497,6 +695,8 @@ function renderPreset(){
   });
 }
 
+fillPresetQuickSel();
+renderOverviewCards();
 render();
 
 if ('serviceWorker' in navigator) {
