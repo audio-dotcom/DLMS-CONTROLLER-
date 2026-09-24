@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#02070e"><title>DLMS 2.4 V2.0</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#02070e;--c:#00e5ff;--cd:#0a5f70;--o:#ff9628;--g:#00f096;--r:#ff405a;--v:#be64ff;--y:#ffd640;--t:#d7f5ff;--d:#5c8aa0;--pn:#071c2c;--gl:0 0 12px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:radial-gradient(900px 500px at 15% -10%,#08344a 0,transparent 60%),radial-gradient(700px 500px at 100% 100%,#1e0b3a 0,transparent 55%),var(--bg);color:var(--t);font:600 15px Rajdhani,system-ui,sans-serif;min-height:100vh;padding:0 0 76px}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(0,229,255,.05) 1px,transparent 1px) 0 0/100% 4px,linear-gradient(90deg,rgba(0,229,255,.04) 1px,transparent 1px) 0 0/44px 100%;mask:linear-gradient(#000,transparent 85%)}
+h1,h2,.or{font-family:Orbitron,Rajdhani,sans-serif;letter-spacing:.12em}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 14px 10px;background:linear-gradient(#02070ef2,#02070ecc);backdrop-filter:blur(8px);border-bottom:1px solid var(--cd)}
+header:after{content:"";position:absolute;left:0;bottom:-1px;width:40%;height:1px;background:linear-gradient(90deg,var(--c),transparent);box-shadow:var(--gl) var(--c)}
+h1{font-size:15px;margin:0;flex:1;color:var(--c);text-shadow:var(--gl) var(--c)}h1 small{display:block;font:600 10px Rajdhani;color:var(--d);letter-spacing:.3em}
+.pill{font-size:12px;padding:5px 10px;border:1px solid var(--cd);border-radius:20px;color:var(--d)}.pill.on{color:var(--g);border-color:var(--g);box-shadow:var(--gl) #00f09655}.pill.demo{color:var(--o);border-color:var(--o)}
+button{font:inherit;color:var(--t);cursor:pointer}
+.btn{background:#0a2a3c;border:1px solid var(--cd);padding:8px 14px;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);letter-spacing:.08em;transition:.15s}
+.btn:hover,.btn.on{background:var(--c);color:#02070e;box-shadow:var(--gl) var(--c)}.btn.red.on{background:var(--r);box-shadow:var(--gl) var(--r)}.btn.or.on{background:var(--o)}
+main{max-width:980px;margin:0 auto;padding:14px}.pg{display:none}.pg.on{display:block;animation:in .35s}@keyframes in{from{opacity:0;transform:translateY(8px)}}
+.p{position:relative;background:linear-gradient(160deg,#0b2b40cc,#06121ee6);padding:12px;clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);box-shadow:inset 0 0 0 1px #00e5ff2e}
+.p:before,.p:after{content:"";position:absolute;width:14px;height:14px;border:2px solid var(--c);opacity:.8}.p:before{right:0;top:0;border-left:0;border-bottom:0}.p:after{left:0;bottom:0;border-right:0;border-top:0}
+.gr2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:12px}
+canvas{display:block;width:100%}.g canvas{height:150px}.led{height:110px}
+.lb{color:var(--d);font-size:12px;letter-spacing:.15em;display:flex;justify-content:space-between;align-items:center}
+.val{font:700 20px Orbitron;color:#fff}.u{font-size:11px;color:var(--d)}
+input[type=range]{-webkit-appearance:none;width:100%;height:24px;background:none}
+input[type=range]::-webkit-slider-runnable-track{height:4px;background:linear-gradient(90deg,var(--cd),var(--c));box-shadow:var(--gl) #00e5ff66}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-7px;background:#02070e;border:2px solid var(--c);transform:rotate(45deg);box-shadow:var(--gl) var(--c)}
+input[type=number]{width:96px;background:#04121d;color:var(--t);border:1px solid var(--cd);padding:6px;font:700 14px Orbitron}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}.row>.grow{flex:1}
+.gc{height:280px;touch-action:none;cursor:crosshair}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:6;display:flex;justify-content:center;gap:4px;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:linear-gradient(#02070e00,#02070ef5 40%)}
+nav button{flex:1;max-width:190px;background:#071c2c;border:1px solid var(--cd);padding:10px 4px;font:700 11px Orbitron;letter-spacing:.1em;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}nav button.on{color:#02070e;background:var(--c);box-shadow:var(--gl) var(--c)}
+.seg{display:flex;gap:4px;flex-wrap:wrap}.seg .btn{padding:6px 12px}
+.b{display:inline-block;padding:2px 8px;font:700 11px Orbitron;color:#02070e;background:var(--c)}
+.mx{display:grid;grid-template-columns:auto 1fr;gap:10px 14px;align-items:center}
+.sl{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}.sl .p{padding:14px}
+#toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#02070ef0;border:1px solid var(--c);padding:10px 18px;opacity:0;pointer-events:none;transition:.3s;z-index:9;box-shadow:var(--gl) var(--c)}#toast.on{opacity:1}
+</style></head><body>
+<header><h1>DLMS 2.4 V2.0</h1><span id="st" class="pill">OFFLINE</span><button class="btn" id="cn">CONNECT</button><button class="btn or" id="dm">DEMO</button></header>
+<main>
+<section id="dash" class="pg on"><div class="gr2"><div class="p g"><div class="lb"><span>IN L</span><span class="or" style="color:var(--c)">INPUT</span></div><canvas id="gL"></canvas></div><div class="p g"><div class="lb"><span>IN R</span><button class="btn red" id="ma">MUTE ALL</button></div><canvas id="gR"></canvas></div></div><div class="cards" id="cards"></div></section>
+<section id="ch" class="pg"><div class="row seg" id="chs"></div><div class="row seg" id="tbs"></div><div id="cb"></div></section>
+<section id="mx" class="pg"><div class="p"><div class="lb" style="margin-bottom:12px"><span class="or">MATRIX ROUTING</span><span>IN → OUT</span></div><div class="mx" id="mxb"></div></div></section>
+<section id="pre" class="pg"><div class="sl" id="slots"></div><p class="u">Load memanggil preset di perangkat lalu menyinkronkan route/gain/x-over/mute. Nilai PEQ, delay & limiter tidak dikirim balik oleh firmware.</p></section>
+</main>
+<nav id="nav"><button data-p="dash" class="on">DASH</button><button data-p="ch">CHANNEL</button><button data-p="mx">MATRIX</button><button data-p="pre">PRESET</button></nav>
+<div id="toast"></div>
+<script>
+'use strict';
+const $=(s,e=document)=>e.querySelector(s),$$=(s,e=document)=>[...e.querySelectorAll(s)];
+const U={svc:'4fafc201-1fb5-459e-8fcc-c5c9c331914b',ctl:'beb5483e-36e1-4688-b7f5-ea07361b26a8',st:'beb5483e-36e1-4688-b7f5-ea07361b26a9',rta:'beb5483e-36e1-4688-b7f5-ea07361b26aa'};
+const FI=[20,22,25,28,32,40,50,63,80,100,125,160,200,250,315,400,500,630,800,1000,1250,1600,2000,2500,3150,4000,5000,6300,8000,10000,12500,16000,20000];
+const BC=['#ff465a','#ff9628','#ffd640','#78ff5a','#00f0aa','#00c8ff','#5a82ff','#be64ff','#ff64c8'];
+const RN=['L','R','L+R'],CC=['#00e5ff','#00f096','#ff9628','#be64ff'];
+const fmt=f=>f<1e3?''+f:(f%1e3==0?f/1e3:f%100==0?(f/1e3).toFixed(1):(f/1e3).toFixed(2))+'k';
+const cl=(v,a,b)=>Math.min(b,Math.max(a,v));
+const S={route:[0,1,2,2],gain:[0,0,0,0],mute:[0,0,0,0],hpf:[20,20,20,20],lpf:[20000,20000,20000,20000],
+ peq:[0,1,2,3].map(()=>Array.from({length:9},()=>({f:19,g:0,q:10}))),dly:[0,0,0,0],lim:[0,1,2,3].map(()=>({t:0,a:10,r:100}))};
+let ch=0,bd=0,tab='xo',page='dash',demo=false,ctl=null,dev=null,busy=false;const Q=new Map();
+const i16=v=>[v&255,(v>>8)&255];
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2000)};
+/* ---- BLE ---- */
+function send(k,a){if(demo||!ctl)return;Q.set(k,a);if(!busy)pump()}
+async function pump(){busy=true;while(Q.size){const[k,a]=Q.entries().next().value;Q.delete(k);try{await ctl.writeValueWithoutResponse(new Uint8Array(a))}catch(e){try{await ctl.writeValue(new Uint8Array(a))}catch(_){}}await new Promise(r=>setTimeout(r,22))}busy=false}
+const C={route:c=>send('r'+c,[1,c,S.route[c]]),gain:c=>send('g'+c,[2,c,...i16(S.gain[c])]),
+ mute:()=>send('m',[3,S.mute.reduce((m,v,i)=>m|(v<<(i+2)),0)]),hpf:c=>send('h'+c,[4,c,...i16(S.hpf[c])]),lpf:c=>send('l'+c,[5,c,...i16(S.lpf[c])]),
+ peq:(c,b)=>{const p=S.peq[c][b];send('p'+c+b,[6,c,b,p.f,...i16(Math.round(p.g*10)),...i16(p.q)])},
+ dly:c=>send('d'+c,[7,c,...i16(S.dly[c])]),lim:c=>{const l=S.lim[c];send('i'+c,[8,c,...i16(Math.round(l.t*10)),...i16(l.a),...i16(l.r)])}};
+async function connect(){
+ if(!navigator.bluetooth){toast('Web Bluetooth tidak tersedia · pakai Chrome Android/desktop');return}
+ try{dev=await navigator.bluetooth.requestDevice({filters:[{services:[U.svc]}]});dev.addEventListener('gattserverdisconnected',()=>{ctl=null;setSt()});
+  const sv=await(await dev.gatt.connect()).getPrimaryService(U.svc);ctl=await sv.getCharacteristic(U.ctl);
+  const st=await sv.getCharacteristic(U.st),rt=await sv.getCharacteristic(U.rta);
+  st.addEventListener('characteristicvaluechanged',e=>parseSt(e.target.value));rt.addEventListener('characteristicvaluechanged',e=>{for(let i=0;i<6;i++)T[i]=e.target.value.getUint8(i)/255*60-60});
+  await st.startNotifications();await rt.startNotifications();demo=false;setSt();await ctl.writeValue(new Uint8Array([0x0B]));toast('Terhubung')
+ }catch(e){toast('Gagal: '+(e.message||e))}}
+function parseSt(v){if(v.byteLength<29)return;let p=0;for(let i=0;i<4;i++)S.route[i]=v.getUint8(p++);for(let i=0;i<4;i++,p+=2)S.gain[i]=v.getInt16(p,true);
+ for(let i=0;i<4;i++,p+=2)S.hpf[i]=v.getUint16(p,true);for(let i=0;i<4;i++,p+=2)S.lpf[i]=v.getUint16(p,true);const m=v.getUint8(p);for(let i=0;i<4;i++)S.mute[i]=(m>>(i+2))&1;buildAll()}
+function setSt(){const e=$('#st');e.className='pill '+(ctl?'on':demo?'demo':'');e.textContent=ctl?'LINKED':demo?'DEMO':'OFFLINE';$('#cn').textContent=ctl?'DISCONNECT':'CONNECT'}
+$('#cn').onclick=()=>ctl?dev.gatt.disconnect():connect();
+$('#dm').onclick=()=>{demo=!demo;$('#dm').classList.toggle('on',demo);setSt()};
+/* ---- meters ---- */
+const T=Array(6).fill(-60),M=Array(6).fill(-60),P=Array(6).fill(-60);
+setInterval(()=>{if(!demo)return;const t=performance.now()/1e3;for(let i=0;i<6;i++)T[i]=-38+22*Math.abs(Math.sin(t*(.7+i*.23)+i))*(.6+.4*Math.sin(t*3+i*2))-(i>1&&S.mute[i-2]?60:0)+(i>1?S.gain[i-2]*.5:0)},90);
+function fit(c){const d=devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;if(c.width!=w*d||c.height!=h*d){c.width=w*d;c.height=h*d}const x=c.getContext('2d');x.setTransform(d,0,0,d,0,0);return[x,w,h]}
+function gauge(c,db,col,lb){const[x,w,h]=fit(c),r=Math.min(w/2,h/2)-10,cx=w/2,cy=h/2+4,n=72,on=Math.round((db+60)/60*n);x.clearRect(0,0,w,h);x.lineCap='butt';
+ for(let i=0;i<=n;i++){const a=(135+i*270/n)*Math.PI/180;x.strokeStyle=i>on?'#123a50':i>=69?'#ff405a':i>=58?'#ffd640':col;x.shadowColor=i<=on?x.strokeStyle:'transparent';x.shadowBlur=i<=on?8:0;x.lineWidth=3;x.beginPath();x.moveTo(cx+Math.cos(a)*(r-12),cy+Math.sin(a)*(r-12));x.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);x.stroke()}
+ x.shadowBlur=0;x.fillStyle='#fff';x.textAlign='center';x.font='700 26px Orbitron';x.fillText(db<-59?'--':Math.round(db),cx,cy+8);x.fillStyle='#5c8aa0';x.font='600 12px Rajdhani';x.fillText('dB',cx,cy+26)}
+function led(c,db,pk,col){const[x,w,h]=fit(c),n=Math.floor(h/5);x.clearRect(0,0,w,h);for(let i=0;i<n;i++){const t=-48+i*48/(n-1),y=h-(i+1)*5+1;x.fillStyle=db>=t?(t>=-3?'#ff405a':t>=-12?'#ffd640':col):'#0f3348';x.fillRect(0,y,w,3)}
+ const k=Math.round((pk+48)/48*(n-1));if(pk>-47&&k>=0&&k<n){x.fillStyle='#fff';x.fillRect(0,h-(k+1)*5+1,w,3)}}
+function loop(){for(let i=0;i<6;i++){const t=cl(T[i],-60,0);M[i]+=(t-M[i])*(t>M[i]?.55:.1);P[i]=Math.max(M[i],P[i]-.35)}
+ if(page=='dash'){gauge($('#gL'),M[0],'#00e5ff');gauge($('#gR'),M[1],'#ff9628');$$('.led').forEach(c=>{const i=+c.dataset.i;led(c,M[i+2],P[i+2],CC[i])})}requestAnimationFrame(loop)}
+/* ---- dashboard ---- */
+function buildCards(){$('#cards').innerHTML=[0,1,2,3].map(i=>`<div class="p"><div class="lb"><span class="or" style="color:${CC[i]}">OUT ${i+1}</span><span class="b" data-rt="${i}" style="cursor:pointer">${RN[S.route[i]]}</span></div>
+<canvas class="led" data-i="${i}"></canvas><div class="val" id="gv${i}">${S.gain[i]>0?'+':''}${S.gain[i]}<span class="u"> dB</span></div>
+<input type="range" min="-40" max="6" value="${S.gain[i]}" data-g="${i}"><div class="row"><button class="btn red ${S.mute[i]?'on':''}" data-m="${i}">MUTE</button><button class="btn" data-e="${i}">EDIT</button></div></div>`).join('')}
+$('#cards').addEventListener('input',e=>{const i=e.target.dataset.g;if(i==null)return;S.gain[i]=+e.target.value;$('#gv'+i).firstChild.nodeValue=(S.gain[i]>0?'+':'')+S.gain[i];C.gain(+i)});
+$('#cards').addEventListener('click',e=>{const t=e.target,d=t.dataset;if(d.m!=null){S.mute[d.m]^=1;t.classList.toggle('on');C.mute()}else if(d.e!=null){ch=+d.e;go('ch')}else if(d.rt!=null){S.route[d.rt]=(S.route[d.rt]+1)%3;t.textContent=RN[S.route[d.rt]];C.route(+d.rt)}});
+$('#ma').onclick=()=>{const a=S.mute.every(v=>v);S.mute.fill(a?0:1);C.mute();buildCards()};
+/* ---- channel ---- */
+const TB=[['xo','X-OVER'],['eq','PARA EQ'],['dl','DELAY'],['li','LIMITER']];
+function buildCh(){$('#chs').innerHTML=[0,1,2,3].map(i=>`<button class="btn ${i==ch?'on':''}" data-c="${i}">OUT ${i+1}</button>`).join('');$('#tbs').innerHTML=TB.map(t=>`<button class="btn or ${t[0]==tab?'on':''}" data-t="${t[0]}">${t[1]}</button>`).join('');
+ const b=$('#cb');if(tab=='xo')b.innerHTML=`<div class="p"><canvas id="gr" class="gc"></canvas><div class="row"><span class="u">HPF</span><input type="number" id="nh" min="20" max="20000" value="${S.hpf[ch]}"><span class="u">LPF</span><input type="number" id="nl" min="20" max="20000" value="${S.lpf[ch]}"><span class="u grow">LR24 · seret penanda hijau/oranye</span></div></div>`;
+ else if(tab=='eq')b.innerHTML=`<div class="p"><div class="row seg" id="bds"></div><canvas id="gr" class="gc"></canvas><div class="row" id="eqv"></div></div>`;
+ else if(tab=='dl')b.innerHTML=`<div class="p"><div class="lb"><span>DELAY</span><span class="seg" id="du"></span></div><div class="val" id="dv" style="font-size:38px;margin:10px 0"></div><input type="range" id="dr" min="0" max="3000" value="${S.dly[ch]}"><svg viewBox="0 0 300 30" width="100%" height="30"><line x1="6" y1="22" x2="294" y2="22" stroke="#0a5f70"/><rect x="5" y="4" width="3" height="18" fill="#00e5ff"/><rect id="dp" y="4" width="3" height="18" fill="#ff9628"/></svg></div>`;
+ else b.innerHTML=`<div class="p"><div class="lb"><span class="or">LIMITER</span><span class="u">ratio diatur di perangkat</span></div>${[['t','THRESHOLD','dB',-30,0,.5],['a','ATTACK','ms',1,100,1],['r','RELEASE','ms',10,5000,10]].map(s=>`<div class="lb" style="margin-top:14px"><span>${s[1]}</span><span class="val" id="lv${s[0]}">${S.lim[ch][s[0]]}<span class="u"> ${s[2]}</span></span></div><input type="range" data-l="${s[0]}" min="${s[3]}" max="${s[4]}" step="${s[5]}" value="${S.lim[ch][s[0]]}">`).join('')}</div>`;
+ if(tab=='xo'||tab=='eq')setup();if(tab=='eq')eqUi();if(tab=='dl')dlUi()}
+$('#chs').onclick=e=>{if(e.target.dataset.c!=null){ch=+e.target.dataset.c;buildCh()}};$('#tbs').onclick=e=>{if(e.target.dataset.t){tab=e.target.dataset.t;buildCh()}};
+let du=0;
+function dlUi(){const v=S.dly[ch]/10,mm=v*.343,t=[v.toFixed(1)+' ms',mm.toFixed(2)+' m',(mm*3.28084).toFixed(2)+' ft'][du];$('#dv').textContent=t;$('#dp').setAttribute('x',6+S.dly[ch]/3000*288);$('#du').innerHTML=['MS','M','FT'].map((n,i)=>`<button class="btn ${i==du?'on':''}" data-u="${i}">${n}</button>`).join('')}
+$('#cb').addEventListener('click',e=>{const d=e.target.dataset;if(d.u!=null){du=+d.u;dlUi()}else if(d.b!=null){bd=+d.b;eqUi();draw()}else if(d.z){S.peq[ch].forEach(p=>{p.g=0});S.peq[ch].forEach((_,b)=>C.peq(ch,b));eqUi();draw()}});
+$('#cb').addEventListener('input',e=>{const t=e.target;if(t.id=='dr'){S.dly[ch]=+t.value;C.dly(ch);dlUi()}else if(t.dataset.l){const k=t.dataset.l;S.lim[ch][k]=+t.value;$('#lv'+k).firstChild.nodeValue=t.value;C.lim(ch)}
+ else if(t.id=='nh'||t.id=='nl'){const v=cl(+t.value|0,20,20000);(t.id=='nh'?S.hpf:S.lpf)[ch]=v;t.id=='nh'?C.hpf(ch):C.lpf(ch);draw()}else if(t.id=='qs'){S.peq[ch][bd].q=+t.value;C.peq(ch,bd);$('#qv').textContent=(t.value/10).toFixed(1);draw()}});
+function eqUi(){$('#bds').innerHTML=S.peq[ch].map((p,i)=>`<button class="btn ${i==bd?'on':''}" data-b="${i}" style="border-color:${BC[i]}">${i+1}</button>`).join('')+'<button class="btn red" data-z="1">FLAT</button>';const p=S.peq[ch][bd];
+ $('#eqv').innerHTML=`<span class="val">${fmt(FI[p.f])}<span class="u"> Hz</span></span><span class="val" style="color:${p.g>0?'var(--g)':p.g<0?'var(--r)':'#fff'}">${p.g>0?'+':''}${p.g.toFixed(1)}<span class="u"> dB</span></span><span class="u">Q</span><input type="range" id="qs" class="grow" min="4" max="120" value="${p.q}" style="flex:1;min-width:120px"><span class="val" id="qv">${(p.q/10).toFixed(1)}</span>`}
+/* ---- graph ---- */
+let gc,gx,gw,gh;const LF=Math.log10(20),LR=3;
+const X=f=>(Math.log10(f)-LF)/LR*gw,Y=d=>tab=='xo'?24+cl(-d,-6,42)/42*(gh-34):gh/2-cl(d,-15,15)/15*(gh/2-8),XF=x=>Math.pow(10,LF+x/gw*LR);
+function setup(){gc=$('#gr');draw();gc.onpointerdown=e=>{gc.setPointerCapture(e.pointerId);pick(e);gc.onpointermove=mv};gc.onpointerup=()=>gc.onpointermove=null;onresize=draw}
+let drag=null;
+function pt(e){const r=gc.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]}
+function pick(e){const[x,y]=pt(e);if(tab=='xo'){drag=Math.abs(x-X(S.hpf[ch]))<Math.abs(x-X(S.lpf[ch]))?'h':'l'}else{let m=1e9;S.peq[ch].forEach((p,i)=>{const d=Math.hypot(x-X(FI[p.f]),y-Y(p.g));if(d<m){m=d;drag=i}});if(m<40){bd=drag;eqUi()}else drag=bd}mv(e)}
+function mv(e){const[x,y]=pt(e);if(tab=='xo'){let f=XF(cl(x,0,gw));f=f<200?Math.round(f/5)*5:f<500?Math.round(f/10)*10:f<2e3?Math.round(f/50)*50:Math.round(f/100)*100;f=cl(f,20,20000);
+  if(drag=='h'){S.hpf[ch]=f;$('#nh').value=f;C.hpf(ch)}else{S.lpf[ch]=f;$('#nl').value=f;C.lpf(ch)}}
+ else{const p=S.peq[ch][drag],f=XF(cl(x,0,gw));p.f=FI.reduce((b,v,i)=>Math.abs(Math.log(v/f))<Math.abs(Math.log(FI[b]/f))?i:b,0);p.g=Math.round(cl((gh/2-y)/(gh/2-8)*15,-15,15)*10)/10;C.peq(ch,drag);eqUi()}draw()}
+function peqDb(p,f){const A=Math.pow(10,p.g/40),w0=2*Math.PI*FI[p.f]/48e3,q=p.q/10,al=Math.sin(w0)/(2*q),cw=Math.cos(w0),b=[1+al*A,-2*cw,1-al*A],a=[1+al/A,-2*cw,1-al/A],w=2*Math.PI*f/48e3,c1=Math.cos(w),c2=Math.cos(2*w);
+ const n=b[0]*b[0]+b[1]*b[1]+b[2]*b[2]+2*(b[0]*b[1]+b[1]*b[2])*c1+2*b[0]*b[2]*c2,d=a[0]*a[0]+a[1]*a[1]+a[2]*a[2]+2*(a[0]*a[1]+a[1]*a[2])*c1+2*a[0]*a[2]*c2;return 10*Math.log10(n/d)}
+const lr=(f,fc,hp)=>{const r4=Math.pow(f/fc,4),t=hp?r4/(1+r4):1/(1+r4);return 10*Math.log10(t*t+1e-12)};
+function draw(){if(!gc||!gc.isConnected)return;[gx,gw,gh]=fit(gc);const xo=tab=='xo',x=gx;x.clearRect(0,0,gw,gh);x.font='600 11px Rajdhani';x.fillStyle='#5c8aa0';x.lineWidth=1;
+ [20,100,1e3,1e4,2e4].forEach(f=>{const px=X(f);x.strokeStyle='#123a50';x.beginPath();x.moveTo(px,0);x.lineTo(px,gh);x.stroke();x.fillText(fmt(f),Math.min(px+3,gw-26),gh-4)});
+ (xo?[0,-12,-24,-36]:[-12,-6,0,6,12]).forEach(d=>{const y=Y(d);x.strokeStyle=d==0?'#1f7890':'#123a50';x.beginPath();x.moveTo(0,y);x.lineTo(gw,y);x.stroke();x.fillText(d,3,y-2)});
+ const pts=[];for(let i=0;i<=gw;i+=2){const f=XF(i);const d=xo?lr(f,S.hpf[ch],1)+lr(f,S.lpf[ch],0):S.peq[ch].reduce((s,p)=>p.g?s+peqDb(p,f):s,0);pts.push([i,Y(d)])}
+ const z=xo?gh:Y(0),gr=x.createLinearGradient(0,0,0,gh);gr.addColorStop(0,'#00e5ff55');gr.addColorStop(1,'#00e5ff05');x.fillStyle=gr;x.beginPath();x.moveTo(0,z);pts.forEach(p=>x.lineTo(p[0],p[1]));x.lineTo(gw,z);x.fill();
+ x.shadowColor='#00e5ff';x.shadowBlur=12;x.strokeStyle='#00e5ff';x.lineWidth=2.5;x.beginPath();pts.forEach((p,i)=>i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]));x.stroke();x.shadowBlur=0;
+ if(xo)[[S.hpf[ch],'#00f096'],[S.lpf[ch],'#ff9628']].forEach(([f,c])=>{const px=X(f);x.strokeStyle=c;x.setLineDash([4,4]);x.beginPath();x.moveTo(px,0);x.lineTo(px,gh);x.stroke();x.setLineDash([]);x.fillStyle=c;x.beginPath();x.moveTo(px-8,gh);x.lineTo(px+8,gh);x.lineTo(px,gh-14);x.fill()});
+ else S.peq[ch].forEach((p,i)=>{const px=X(FI[p.f]),py=Y(p.g),a=i==bd;x.fillStyle=BC[i];x.shadowColor=BC[i];x.shadowBlur=a?16:6;x.beginPath();x.arc(px,py,a?9:5,0,7);x.fill();x.shadowBlur=0;if(a){x.strokeStyle='#fff';x.lineWidth=2;x.stroke();x.fillStyle='#02070e';x.font='700 11px Orbitron';x.textAlign='center';x.fillText(i+1,px,py+4);x.textAlign='left'}})}
+/* ---- matrix & preset ---- */
+function buildMx(){$('#mxb').innerHTML=[0,1,2,3].map(i=>`<span class="or" style="color:${CC[i]}">OUT ${i+1}</span><div class="seg">${RN.map((n,k)=>`<button class="btn ${S.route[i]==k?'on':''}" data-o="${i}" data-k="${k}">${n}</button>`).join('')}</div>`).join('')}
+$('#mxb').onclick=e=>{const d=e.target.dataset;if(d.o!=null){S.route[d.o]=+d.k;C.route(+d.o);buildMx();buildCards()}};
+function buildPre(){$('#slots').innerHTML=[0,1,2,3,4].map(i=>`<div class="p"><div class="or" style="color:var(--c);font-size:22px">${i+1}</div><div class="u">PRESET SLOT</div><div class="row"><button class="btn" data-ld="${i}">LOAD</button><button class="btn or" data-sv="${i}">SAVE</button></div></div>`).join('')}
+$('#slots').onclick=e=>{const d=e.target.dataset;if(d.ld!=null){if(confirm('Load preset '+(+d.ld+1)+'?')){send('x',[9,+d.ld]);setTimeout(()=>send('y',[0x0B]),400);toast('Preset '+(+d.ld+1)+' dipanggil')}}else if(d.sv!=null&&confirm('Timpa preset '+(+d.sv+1)+'?')){send('z',[0x0A,+d.sv]);toast('Preset '+(+d.sv+1)+' tersimpan')}};
+/* ---- nav ---- */
+function go(p){page=p;$$('.pg').forEach(s=>s.classList.toggle('on',s.id==p));$$('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.p==p));if(p=='ch')buildCh()}
+$('#nav').onclick=e=>{if(e.target.dataset.p)go(e.target.dataset.p)};
+function buildAll(){buildCards();buildMx();if(page=='ch')buildCh()}
+buildAll();buildPre();setSt();if(!navigator.bluetooth){demo=true;$('#dm').classList.add('on');setSt()}loop();
+if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script></body></html>
